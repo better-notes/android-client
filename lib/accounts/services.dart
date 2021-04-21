@@ -10,7 +10,7 @@ Future<dynamic> register(
   var res;
   try {
     res = await http.post(
-      Uri.parse('http://192.168.88.219:8000/api/v1/account/register/'),
+      Uri.parse('http://notes.wintercitizen.xyz/api/v1/account/register/'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -40,7 +40,7 @@ Future<dynamic> authenticate(String username, String password) async {
   var res;
   try {
     res = await http.post(
-      Uri.parse('http://192.168.88.219:8000/api/v1/account/authenticate/'),
+      Uri.parse('http://notes.wintercitizen.xyz/api/v1/account/authenticate/'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },

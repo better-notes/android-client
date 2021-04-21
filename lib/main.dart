@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/enter.dart';
 import 'package:flutter_application_1/pages/home.dart';
+import 'package:flutter_application_1/pages/loadScreen.dart';
 import 'package:flutter_application_1/pages/preload.dart';
 // import 'package:flutter_application_1/images/logo.dart';
 import 'package:flutter_application_1/theming.dart';
@@ -13,18 +14,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 void main() {
   runApp(MediaQuery(
       data: MediaQueryData(),
-      child: MaterialApp(title: 'BetterNotes', home: MyApp())));
+      child: MaterialApp(
+          title: 'BetterNotes',
+          theme: ThemeData(canvasColor: Color(0xFF0E1621)),
+          home: MyApp())));
 }
 
 enum appPageState { home, enter, preload }
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  final _storage = FlutterSecureStorage();
+class MyAppState extends State<MyApp> {
+  final storage = FlutterSecureStorage();
+  var stateToken;
 
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
@@ -33,16 +38,17 @@ class _MyAppState extends State<MyApp> {
   var _appState = appPageState.preload;
 
   void _setValue(String key, String value) async {
-    await _storage.write(key: key, value: value);
+    stateToken = value;
+    await storage.write(key: key, value: value);
   }
 
-  _getValue(String key) async {
-    var token = await _storage.read(key: key);
+  getValue(String key) async {
+    var token = await storage.read(key: key);
     return token;
   }
 
   void _removeValue(String key) async {
-    await _storage.delete(key: key);
+    await storage.delete(key: key);
   }
 
   void _setAppStateHome() {
@@ -64,13 +70,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   void storeCheck() async {
-    var token = await _getValue('authToken');
-    print(token);
+    var token = await getValue('authToken');
     if (token == null) {
       setState(() {
         _appState = appPageState.enter;
       });
     } else {
+      stateToken = token;
       setState(() {
         _appState = appPageState.home;
       });
@@ -86,7 +92,9 @@ class _MyAppState extends State<MyApp> {
         return EnterPage(
             setAppStateHome: _setAppStateHome, setValue: _setValue);
       case appPageState.home:
-        return HomePage();
+        return LoadScreenPage(
+          stateToken: stateToken,
+        );
       default:
         return PreloadPage();
     }
