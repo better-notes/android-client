@@ -86,7 +86,10 @@ class _MyAppState extends State<MyApp> {
         return EnterPage(
             setAppStateHome: _setAppStateHome, setValue: _setValue);
       case appPageState.home:
-        return HomePage();
+        return HomePage(
+          setAppStateEnter: _setAppStateEnter,
+          removeValue: _removeValue,
+        );
       default:
         return PreloadPage();
     }
