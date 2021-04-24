@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_application_1/accounts/services.dart';
-import 'package:flutter_application_1/accounts/entities.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';

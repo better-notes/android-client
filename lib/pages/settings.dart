@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_application_1/components/homePage/HomePageDrawer.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
     required this.setAppStateEnter,
-    required this.removeValue,
+    required this.storage,
   });
   final VoidCallback setAppStateEnter;
-  final Function(String) removeValue;
+  final FlutterSecureStorage storage;
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -40,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: InkWell(
                       onTap: () async {
                         Navigator.pop(context);
-                        await widget.removeValue('authToken');
+                        await widget.storage.read(key: 'authToken');
                         widget.setAppStateEnter();
                       },
                       child: ListTile(

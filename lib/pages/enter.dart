@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/components/loginForm.dart';
 import 'package:flutter_application_1/components/signupForm.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 
@@ -10,10 +11,10 @@ enum enterState { login, signup }
 class EnterPage extends StatefulWidget {
   EnterPage({
     required this.setAppStateHome,
-    required this.setValue,
+    required this.storage,
   });
   final VoidCallback setAppStateHome;
-  final Function(String, String) setValue;
+  final FlutterSecureStorage storage;
   @override
   _EnterPageState createState() => _EnterPageState();
 }
@@ -44,7 +45,7 @@ class _EnterPageState extends State<EnterPage> {
           enterStateSetter: _setSignUpState,
           loginController: loginLoginController,
           passwordController: loginPasswordController,
-          setValue: widget.setValue,
+          storage: widget.storage,
           setAppStateHome: widget.setAppStateHome,
         );
       case enterState.signup:
@@ -53,7 +54,7 @@ class _EnterPageState extends State<EnterPage> {
           loginController: signUpLoginController,
           passwordController: signUpPassword1Controller,
           confirmPasswordController: signUpPassword2Controller,
-          setValue: widget.setValue,
+          storage: widget.storage,
           setAppStateHome: widget.setAppStateHome,
         );
     }

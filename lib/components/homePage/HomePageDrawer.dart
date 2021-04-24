@@ -6,15 +6,16 @@ import 'package:flutter_application_1/pages/about.dart';
 import 'package:flutter_application_1/pages/features.dart';
 import 'package:flutter_application_1/pages/settings.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageDrawer extends StatelessWidget {
   HomePageDrawer({
     required this.setAppStateEnter,
-    required this.removeValue,
+    required this.storage,
   });
   final VoidCallback setAppStateEnter;
-  final Function(String) removeValue;
+  final FlutterSecureStorage storage;
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
     height: 30,
@@ -44,7 +45,7 @@ class HomePageDrawer extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => SettingsPage(
                             setAppStateEnter: setAppStateEnter,
-                            removeValue: removeValue,
+                            storage: storage,
                           )),
                 );
               }),

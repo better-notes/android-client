@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginCard extends StatelessWidget {
   LoginCard({
     required this.enterStateSetter,
     required this.loginController,
     required this.passwordController,
-    required this.setValue,
+    required this.storage,
     required this.setAppStateHome,
   });
 
   final TextEditingController loginController;
   final VoidCallback enterStateSetter;
   final TextEditingController passwordController;
-  final Function(String, String) setValue;
+  final FlutterSecureStorage storage;
   final VoidCallback setAppStateHome;
 
   final _loginFormKey = GlobalKey<FormState>();
 
   void writeUser(String token) async {
-    await setValue('authToken', token);
+    await this.storage.write(key: 'authToken', value: token);
     setAppStateHome();
   }
 

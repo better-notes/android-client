@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/components/homePage/HomePageDrawer.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 
 class HomePage extends StatefulWidget {
   HomePage({
     required this.setAppStateEnter,
-    required this.removeValue,
+    required this.storage,
   });
   final VoidCallback setAppStateEnter;
-  final Function(String) removeValue;
+  final FlutterSecureStorage storage;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         drawer: HomePageDrawer(
           setAppStateEnter: widget.setAppStateEnter,
-          removeValue: widget.removeValue,
+          storage: widget.storage,
         ),
         appBar: AppBar(
           title: Text('Better Notes'),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignUpCard extends StatelessWidget {
   SignUpCard({
@@ -8,7 +8,7 @@ class SignUpCard extends StatelessWidget {
     required this.loginController,
     required this.passwordController,
     required this.confirmPasswordController,
-    required this.setValue,
+    required this.storage,
     required this.setAppStateHome,
   });
 
@@ -16,13 +16,13 @@ class SignUpCard extends StatelessWidget {
   final VoidCallback enterStateSetter;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  final Function(String, String) setValue;
+  final FlutterSecureStorage storage;
   final VoidCallback setAppStateHome;
 
   final _signUpFormKey = GlobalKey<FormState>();
 
   void writeUser(String token) async {
-    await setValue('authToken', token);
+    await storage.write(key: 'authToken', value: token);
     setAppStateHome();
   }
 
