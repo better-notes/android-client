@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_application_1/components/homePage/HomePageDrawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({
-    required this.setAppStateEnter,
-    required this.removeValue,
-  });
-  final VoidCallback setAppStateEnter;
-  final Function(String) removeValue;
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -39,9 +32,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     color: theming.inputColor,
                     child: InkWell(
                       onTap: () async {
-                        Navigator.pop(context);
-                        await widget.removeValue('authToken');
-                        widget.setAppStateEnter();
+                        // Navigator.pop(context);
+                        // await widget.removeValue('authToken');
+                        // widget.setAppStateEnter();
                       },
                       child: ListTile(
                         trailing: Icon(Icons.logout, color: Colors.white),
