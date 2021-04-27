@@ -85,4 +85,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/grid/grid-dynamic@2x.png"
+  image_path: "assets/grid/kepa.png"

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/enter.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/loadScreen.dart';
@@ -85,6 +86,9 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     switch (_appState) {
       case appPageState.preload:
         return PreloadPage();
@@ -94,6 +98,8 @@ class MyAppState extends State<MyApp> {
       case appPageState.home:
         return LoadScreenPage(
           stateToken: stateToken,
+          removeValue: _removeValue,
+          setStateToEnter: _setAppStateEnter,
         );
       default:
         return PreloadPage();

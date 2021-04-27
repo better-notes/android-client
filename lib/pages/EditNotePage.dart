@@ -1,45 +1,53 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/data/createNote.dart';
-import 'package:flutter_application_1/pages/home.dart';
+import 'package:flutter_application_1/data/editNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:hashtagable/hashtagable.dart';
 
-class AddNotePage extends StatefulWidget {
-  AddNotePage({
+class EditNotePage extends StatefulWidget {
+  EditNotePage({
     required this.stateToken,
-    required this.addNote,
+    required this.updateNote,
+    required this.note,
+    required this.index,
   });
   final String stateToken;
-  final void Function(Map<String, dynamic>) addNote;
+  final Function(Map<String, dynamic>, int) updateNote;
+  final Map<String, dynamic> note;
+  final int index;
   @override
-  _AddNotePageState createState() => _AddNotePageState();
+  _EditNotePageState createState() => _EditNotePageState();
 }
 
-class _AddNotePageState extends State<AddNotePage> {
+class _EditNotePageState extends State<EditNotePage> {
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
     height: 30,
   );
 
-  final createNoteFormKey = GlobalKey<FormState>();
-  final createNoteConroller = TextEditingController();
+  final editNoteFormKey = GlobalKey<FormState>();
+  late TextEditingController editNoteConroller;
+
+  @override
+  void initState() {
+    super.initState();
+    editNoteConroller = new TextEditingController(text: widget.note['text']);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Note'),
+          title: Text('Edit Note'),
           backgroundColor: theming.headerColor,
           foregroundColor: Colors.white,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (createNoteFormKey.currentState!.validate()) {
-              var matches = createNoteConroller.text
+            if (editNoteFormKey.currentState!.validate()) {
+              var matches = editNoteConroller.text
                   .toString()
                   .split(' ')
                   .where((f) => f.startsWith('#'))
@@ -48,27 +56,27 @@ class _AddNotePageState extends State<AddNotePage> {
               matches.forEach(
                   (match) => tags.add({'name': match.toString().substring(1)}));
               print(tags);
-              createNote({"text": createNoteConroller.text, "tags": tags},
-                      widget.stateToken)
-                  .then((value) {
-                widget.addNote(value);
+              var newTag = widget.note;
+              newTag['text'] = editNoteConroller.text;
+              newTag['tags'] = tags;
+              editNote(newTag, widget.stateToken).then((value) {
+                widget.updateNote(value, widget.index);
+                Navigator.pop(context);
                 Navigator.pop(context);
               }).catchError((error) => {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(error.toString()),
-                            duration: Duration(milliseconds: 1500),
-                            width: 280.0, // Width of the SnackBar.
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    8.0), // Inner padding for SnackBar content.
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                        )
-                      });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(error.toString()),
+                        duration: Duration(milliseconds: 1500),
+                        width: 280.0,
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    )
+                  });
             }
           },
           child: const Icon(Icons.save),
@@ -88,9 +96,9 @@ class _AddNotePageState extends State<AddNotePage> {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Form(
-                        key: createNoteFormKey,
+                        key: editNoteFormKey,
                         child: TextFormField(
-                          controller: createNoteConroller,
+                          controller: editNoteConroller,
                           style: TextStyle(color: Colors.white),
                           keyboardType: TextInputType.multiline,
                           maxLines: 13,

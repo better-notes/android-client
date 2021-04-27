@@ -13,7 +13,7 @@ Future<dynamic> readNotes(
   Cookie cookie = Cookie("authentication_token", authToken);
   try {
     res = await http.get(
-        Uri.http(apiUrl, '/api/v1/note/read', {
+        Uri.http(apiUrl, '/api/v1/note/read/', {
           'created_at': createdAt,
           'limit': '$limit',
           'offset': '$offset',
@@ -26,6 +26,7 @@ Future<dynamic> readNotes(
   }
   switch (res.statusCode) {
     case 200:
+      print(res.body);
       List<dynamic> data =
           jsonDecode(Encoding.getByName('utf-8')!.decode(res.bodyBytes));
       List<Map<String, dynamic>> parsedData =
