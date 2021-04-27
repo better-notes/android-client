@@ -3,24 +3,24 @@ import 'dart:io';
 import 'package:flutter_application_1/settings.dart';
 import 'package:http/http.dart' as http;
 
-Future<dynamic> createNote(
+Future<dynamic> editNote(
   Map<String, dynamic> note,
   String authToken,
 ) async {
   var res;
   Cookie cookie = Cookie("authentication_token", authToken);
   try {
-    res = await http.post(
+    res = await http.put(
         Uri.http(
           apiUrl,
-          '/api/v1/note/create/',
+          '/api/v1/note/update/',
         ),
         headers: {
           "cookie": cookie.toString(),
         },
         body: json.encode([note]));
   } on SocketException {
-    throw ('Network error. Please try later or check the connection.');
+    throw ('Network error. Note has been updated locally.');
   }
   switch (res.statusCode) {
     case 200:
@@ -33,7 +33,6 @@ Future<dynamic> createNote(
       Map<String, dynamic> error = jsonDecode(res.body);
       throw (error['detail']);
     default:
-      print(res.statusCode);
-      throw ('Failed add note. Please try later.');
+      throw ('Failed delete note. Note has been updated locally');
   }
 }

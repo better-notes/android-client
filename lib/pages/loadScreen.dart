@@ -9,8 +9,12 @@ import 'package:flutter_application_1/main.dart';
 class LoadScreenPage extends StatefulWidget {
   LoadScreenPage({
     required this.stateToken,
+    required this.removeValue,
+    required this.setStateToEnter,
   });
   final String stateToken;
+  final Function(String) removeValue;
+  final VoidCallback setStateToEnter;
   @override
   _LoadScreenPageState createState() => _LoadScreenPageState();
 }
@@ -35,6 +39,8 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
               child = HomePage(
                 notes: snapshot.data,
                 stateToken: widget.stateToken,
+                removeValue: widget.removeValue,
+                setStateToEnter: widget.setStateToEnter,
               );
             } else if (snapshot.hasError) {
               child = Center(child: appLogo);
@@ -54,7 +60,21 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                 );
               });
             } else {
-              child = Center(child: appLogo);
+              child = Center(
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    SizedBox(
+                      child: CircularProgressIndicator(
+                        backgroundColor: theming.headerColor,
+                      ),
+                      height: 100.0,
+                      width: 100.0,
+                    ),
+                    appLogo,
+                  ],
+                ),
+              );
             }
             return Center(
               child: child,

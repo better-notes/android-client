@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_application_1/settings.dart';
 import 'package:http/http.dart' as http;
 
-Future<dynamic> createNote(
+Future<dynamic> deleteNote(
   Map<String, dynamic> note,
   String authToken,
 ) async {
@@ -13,14 +13,14 @@ Future<dynamic> createNote(
     res = await http.post(
         Uri.http(
           apiUrl,
-          '/api/v1/note/create/',
+          '/api/v1/note/delete/',
         ),
         headers: {
           "cookie": cookie.toString(),
         },
         body: json.encode([note]));
   } on SocketException {
-    throw ('Network error. Please try later or check the connection.');
+    throw ('Network error. Note has been deleted locally.');
   }
   switch (res.statusCode) {
     case 200:
@@ -33,7 +33,6 @@ Future<dynamic> createNote(
       Map<String, dynamic> error = jsonDecode(res.body);
       throw (error['detail']);
     default:
-      print(res.statusCode);
-      throw ('Failed add note. Please try later.');
+      throw ('Failed delete note. Note has been deleted locally');
   }
 }

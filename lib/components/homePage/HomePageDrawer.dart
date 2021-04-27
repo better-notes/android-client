@@ -9,6 +9,12 @@ import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageDrawer extends StatelessWidget {
+  HomePageDrawer({
+    required this.removeValue,
+    required this.setStateToEnter,
+  });
+  final Function(String) removeValue;
+  final VoidCallback setStateToEnter;
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
     height: 10,
@@ -38,7 +44,11 @@ class HomePageDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                  MaterialPageRoute(
+                      builder: (context) => SettingsPage(
+                            removeValue: removeValue,
+                            setStateToEnter: setStateToEnter,
+                          )),
                 );
               }),
           ListTile(
