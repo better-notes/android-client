@@ -60,57 +60,62 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget renderNotes() {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 5, bottom: 20),
-      itemCount: notes.length,
-      itemBuilder: (note, index) {
-        if (index >= notes.length - 1) {
-          getNewNotes(notes.length);
-        }
-        final item = notes[index];
-        return Dismissible(
-            key: Key(item['id_'].toString()),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              deleteNote(item, widget.stateToken).then((value) {
-                setState(() {
-                  notes.removeAt(index);
-                });
-              }).catchError((error) {
-                setState(() {
-                  notes.removeAt(index);
-                });
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text("$error")));
-              });
-            },
-            background: Container(
-              color: Color(0xFF0E1621),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.redAccent,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            child: Container(
-              width: double.infinity,
-              child: Note(
-                note: item,
-                index: index,
-                notes: widget.notes,
-                updateNote: updateNote,
-                stateToken: widget.stateToken,
-              ),
-            ));
-      },
-    );
+    return RefreshIndicator(
+        onRefresh: () async {
+          print('pinus');
+        },
+        child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.only(top: 5, bottom: 20),
+          itemCount: notes.length,
+          itemBuilder: (note, index) {
+            if (index >= notes.length - 1) {
+              getNewNotes(notes.length);
+            }
+            final item = notes[index];
+            return Dismissible(
+                key: Key(item['id_'].toString()),
+                direction: DismissDirection.endToStart,
+                onDismissed: (direction) {
+                  deleteNote(item, widget.stateToken).then((value) {
+                    setState(() {
+                      notes.removeAt(index);
+                    });
+                  }).catchError((error) {
+                    setState(() {
+                      notes.removeAt(index);
+                    });
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text("$error")));
+                  });
+                },
+                background: Container(
+                  color: Color(0xFF0E1621),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.redAccent,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  child: Note(
+                    note: item,
+                    index: index,
+                    notes: widget.notes,
+                    updateNote: updateNote,
+                    stateToken: widget.stateToken,
+                  ),
+                ));
+          },
+        ));
   }
 
   @override
