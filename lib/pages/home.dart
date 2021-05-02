@@ -65,7 +65,8 @@ class HomePageState extends State<HomePage> {
           print('pinus');
         },
         child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics:
+              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           padding: EdgeInsets.only(top: 5, bottom: 20),
           itemCount: notes.length,
           itemBuilder: (note, index) {
@@ -118,6 +119,8 @@ class HomePageState extends State<HomePage> {
         ));
   }
 
+  int searchState = 0;
+
   @override
   void initState() {
     super.initState();
@@ -127,7 +130,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // drawerEdgeDragWidth: MediaQuery.of(context).size.width,
         drawerEdgeDragWidth: 0,
         drawer: HomePageDrawer(
           removeValue: widget.removeValue,
@@ -137,6 +139,24 @@ class HomePageState extends State<HomePage> {
           title: Text('Better Notes'),
           backgroundColor: theming.headerColor,
           foregroundColor: Colors.white,
+          actions: [
+            AnimatedCrossFade(
+              duration: Duration(milliseconds: 200),
+              firstChild: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  setState(() {
+                    this.searchState = 1;
+                  });
+                },
+              ),
+              secondChild: const FlutterLogo(
+                  style: FlutterLogoStyle.stacked, size: 10.0),
+              crossFadeState: this.searchState == 0
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+            ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

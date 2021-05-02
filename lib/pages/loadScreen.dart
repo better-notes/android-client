@@ -11,10 +11,12 @@ class LoadScreenPage extends StatefulWidget {
     required this.stateToken,
     required this.removeValue,
     required this.setStateToEnter,
+    required this.setStateToHome,
   });
   final String stateToken;
   final Function(String) removeValue;
   final VoidCallback setStateToEnter;
+  final VoidCallback setStateToHome;
   @override
   _LoadScreenPageState createState() => _LoadScreenPageState();
 }
@@ -24,6 +26,11 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
     'assets/grid-dynamic.svg',
     height: 30,
   );
+
+  void returnToEnter() async {
+    await widget.removeValue('authToken');
+    widget.setStateToEnter();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +50,35 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                 setStateToEnter: widget.setStateToEnter,
               );
             } else if (snapshot.hasError) {
-              child = Center(child: appLogo);
-              WidgetsBinding.instance!.addPostFrameCallback((_) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(snapshot.error.toString()),
-                    duration: Duration(milliseconds: 15000),
-                    width: 280.0, // Width of the SnackBar.
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 8.0), // Inner padding for SnackBar content.
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                );
-              });
+              switch (snapshot.error) {
+                case HttpError.failedToFindSession:
+                  child = Center(child: appLogo);
+                  returnToEnter();
+                  break;
+                default:
+                  child = Container(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.cloud_off,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                      Text(
+                        'Network error. Please try again',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      ElevatedButton(
+                        child: Text('Retry'),
+                        onPressed: () {
+                          widget.setStateToHome();
+                        },
+                      )
+                    ],
+                  ));
+                  break;
+              }
             } else {
               child = Center(
                 child: Stack(

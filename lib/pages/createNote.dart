@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/data/createNote.dart';
+import 'package:flutter_application_1/note/parseNote.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
@@ -39,17 +40,9 @@ class _AddNotePageState extends State<AddNotePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (createNoteFormKey.currentState!.validate()) {
-              var matches = createNoteConroller.text
-                  .toString()
-                  .split(' ')
-                  .where((f) => f.startsWith('#'))
-                  .toList();
-              var tags = [];
-              matches.forEach(
-                  (match) => tags.add({'name': match.toString().substring(1)}));
-              print(tags);
-              createNote({"text": createNoteConroller.text, "tags": tags},
-                      widget.stateToken)
+              var noteText = parseNote(createNoteConroller.text);
+              var tags = getNoteTags(noteText);
+              createNote({"text": noteText, "tags": tags}, widget.stateToken)
                   .then((value) {
                 widget.addNote(value);
                 Navigator.pop(context);

@@ -3,6 +3,12 @@ import 'dart:io';
 import 'package:flutter_application_1/settings.dart';
 import 'package:http/http.dart' as http;
 
+enum HttpError {
+  failedToFindSession,
+  failedToReadNotes,
+  networkError,
+}
+
 Future<dynamic> readNotes(
   String createdAt,
   int limit,
@@ -22,20 +28,20 @@ Future<dynamic> readNotes(
           "cookie": cookie.toString(),
         });
   } on SocketException {
-    throw ('Network error. Please try later or check the connection.');
+    throw HttpError.networkError;
   }
   switch (res.statusCode) {
     case 200:
-      print(res.body);
       List<dynamic> data =
           jsonDecode(Encoding.getByName('utf-8')!.decode(res.bodyBytes));
       List<Map<String, dynamic>> parsedData =
           new List<Map<String, dynamic>>.from(data);
       return parsedData;
     case 400:
-      Map<String, dynamic> error = jsonDecode(res.body);
-      throw (error['detail']);
+      throw HttpError.networkError;
+    case 422:
+      throw HttpError.failedToFindSession;
     default:
-      throw ('Failed to fetch notes');
+      throw HttpError.failedToFindSession;
   }
 }
