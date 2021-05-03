@@ -61,7 +61,9 @@ class SignUpCard extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 30, right: 30),
                                 child: TextFormField(
-                                  autofillHints: <String>[AutofillHints.email],
+                                  autofillHints: <String>[
+                                    AutofillHints.username,
+                                  ],
                                   style: TextStyle(color: Colors.white),
                                   validator: (value) {
                                     if (value!.trim().isEmpty) {
