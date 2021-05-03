@@ -2,7 +2,7 @@ String parseNote(String content) {
   return content.trim();
 }
 
-List<dynamic> getNoteTags(String content) {
+List<Map<String, dynamic>> getNoteTags(String content) {
   RegExp exp = new RegExp(r"#[a-zA-Z0-9а-яА-Я]+");
   var matches = [];
   exp.allMatches(content).forEach((match) {
