@@ -59,9 +59,24 @@ class HomePageState extends State<HomePage> {
             });
   }
 
+  void refreshNotes() {
+    readNotes('descending', 20, 0, widget.stateToken)
+        .then((value) => {
+              setState(() {
+                notes = value;
+              })
+            })
+        .catchError((error) => {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("$error")))
+            });
+  }
+
   Widget renderNotes() {
     return RefreshIndicator(
-        onRefresh: () async {},
+        onRefresh: () async {
+          refreshNotes();
+        },
         child: ListView.builder(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
