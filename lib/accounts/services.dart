@@ -2,13 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
+import '../settings.dart';
+
 Future<dynamic> register(
     String username, String password1, String password2) async {
-  // var http.Response ;
   var res;
   try {
     res = await http.post(
-      Uri.parse('http://notes.wintercitizen.xyz/api/v1/account/register/'),
+      Uri.http(
+        apiUrl,
+        '/api/v1/account/register/',
+      ),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -34,11 +38,13 @@ Future<dynamic> register(
 }
 
 Future<dynamic> authenticate(String username, String password) async {
-  // var http.Response ;
   var res;
   try {
     res = await http.post(
-      Uri.parse('http://notes.wintercitizen.xyz/api/v1/account/authenticate/'),
+      Uri.http(
+        apiUrl,
+        '/api/v1/account/authenticate/',
+      ),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
