@@ -42,12 +42,10 @@ jobs:
         with:
           name: apk
 
-      - run: ls .
-      - run: ls build/app/outputs/flutter-apk/app-release.apk
-      # - name: send custom message with args
-      #   uses: appleboy/telegram-action@master
-      #   with:
-      #     to: ${{ secrets.TELEGRAM_BOT_CHAT }}
-      #     token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      #     message: "#frontend\n\nNew apk build"
-      #     document: build/app/outputs/flutter-apk/app-release.apk
+      - name: send custom message with args
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_CHAT }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: "#frontend\n\nNew apk build"
+          document: app-release.apk
