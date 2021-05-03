@@ -42,4 +42,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_BOT_CHAT }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: "#frontend\n\nNew apk build"
-          document: build/app/outputs/flutter-apk/app-release.apk
+          document: app-release.apk
