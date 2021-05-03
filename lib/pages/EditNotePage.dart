@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_application_1/data/createNote.dart';
 import 'package:flutter_application_1/data/editNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
@@ -55,7 +54,6 @@ class _EditNotePageState extends State<EditNotePage> {
               var tags = [];
               matches.forEach(
                   (match) => tags.add({'name': match.toString().substring(1)}));
-              print(tags);
               var newTag = widget.note;
               newTag['text'] = editNoteConroller.text;
               newTag['tags'] = tags;

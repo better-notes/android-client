@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_application_1/accounts/entities.dart';
-
 import 'package:http/http.dart' as http;
 
 Future<dynamic> register(

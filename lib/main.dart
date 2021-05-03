@@ -1,12 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/enter.dart';
 import 'package:flutter_application_1/pages/loadScreen.dart';
 import 'package:flutter_application_1/pages/preload.dart';
-// import 'package:flutter_application_1/images/logo.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

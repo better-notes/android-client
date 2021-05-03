@@ -8,7 +8,6 @@ List<dynamic> getNoteTags(String content) {
   exp.allMatches(content).forEach((match) {
     matches.add(match.group(0));
   });
-  print(matches);
   var tags = matches.map((e) {
     e.trim();
     e.replaceAll(new RegExp(r'[,.`~!:;\n\[\]\{\}\?<>]+'), '');

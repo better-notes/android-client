@@ -33,7 +33,6 @@ Future<dynamic> createNote(
       Map<String, dynamic> error = jsonDecode(res.body);
       throw (error['detail']);
     default:
-      print(res.statusCode);
       throw ('Failed add note. Please try later.');
   }
 }

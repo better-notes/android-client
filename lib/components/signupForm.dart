@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
 import 'package:flutter_application_1/theming.dart';
-import 'package:http/http.dart' as http;
 
 class SignUpCard extends StatelessWidget {
   SignUpCard({

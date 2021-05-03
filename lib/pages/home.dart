@@ -61,9 +61,7 @@ class HomePageState extends State<HomePage> {
 
   Widget renderNotes() {
     return RefreshIndicator(
-        onRefresh: () async {
-          print('pinus');
-        },
+        onRefresh: () async {},
         child: ListView.builder(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),

@@ -4,7 +4,6 @@ import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
-import 'package:flutter_application_1/main.dart';
 
 class LoadScreenPage extends StatefulWidget {
   LoadScreenPage({
