@@ -66,6 +66,20 @@ class HomePageDrawer extends StatelessWidget {
                     );
                   },
                 ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    color: Color(0xFFA4A4A4),
+                  ),
+                  title: Text(
+                    'Log out',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () async {
+                    await removeValue('authToken');
+                    setStateToEnter();
+                  },
+                ),
                 Divider(color: Colors.black),
               ],
             ),
@@ -76,12 +90,13 @@ class HomePageDrawer extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: () async {
-                          await removeValue('authToken');
-                          setStateToEnter();
-                        },
-                        child: Text('Log out'))
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        'Better Notes v1.0.0+1',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    )
                   ],
                 ),
               ),
