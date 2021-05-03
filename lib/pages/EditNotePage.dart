@@ -56,20 +56,20 @@ class _EditNotePageState extends State<EditNotePage> {
                 widget.updateNote(value, widget.index);
                 Navigator.pop(context);
                 Navigator.pop(context);
-              }).catchError((error) => {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(error.toString()),
-                        duration: Duration(milliseconds: 1500),
-                        width: 280.0,
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    )
-                  });
+              }).catchError((error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(error.toString()),
+                    duration: Duration(milliseconds: 1500),
+                    width: 280.0,
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                );
+              });
             }
           },
           child: const Icon(Icons.save),
