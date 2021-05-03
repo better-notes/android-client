@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/data/editNote.dart';
+import 'package:flutter_application_1/note/parseNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:hashtagable/hashtagable.dart';
@@ -46,16 +47,10 @@ class _EditNotePageState extends State<EditNotePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (editNoteFormKey.currentState!.validate()) {
-              var matches = editNoteConroller.text
-                  .toString()
-                  .split(' ')
-                  .where((f) => f.startsWith('#'))
-                  .toList();
-              var tags = [];
-              matches.forEach(
-                  (match) => tags.add({'name': match.toString().substring(1)}));
+              var noteText = parseNote(editNoteConroller.text);
+              var tags = getNoteTags(noteText);
               var newTag = widget.note;
-              newTag['text'] = editNoteConroller.text;
+              newTag['text'] = noteText;
               newTag['tags'] = tags;
               editNote(newTag, widget.stateToken).then((value) {
                 widget.updateNote(value, widget.index);
