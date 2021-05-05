@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
@@ -38,13 +36,14 @@ class _SearchPageState extends State<SearchPage> {
           var tags = query
               .trim()
               .split(" ")
+              // The array is filtered because the split
+              // method will not make the array empty, but will
+              // put a single value with an empty string.
               .where((element) => element != '')
               .toList();
-          print(tags.length);
           if (tags.isEmpty) {
             await Future.delayed(Duration(milliseconds: 500));
             setState(() {
-              print('call');
               searchPageState = searchPageStates.empty;
             });
           } else {
@@ -64,7 +63,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildSearchPage() {
-    print('Rebuild $searchPageState');
     switch (searchPageState) {
       case searchPageStates.empty:
         return Center(
