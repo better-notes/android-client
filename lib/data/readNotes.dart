@@ -10,11 +10,8 @@ enum HttpError {
 }
 
 Future<dynamic> readNotes(
-  String createdAt,
-  int limit,
-  int offset,
-  String authToken,
-) async {
+    String createdAt, int limit, int offset, String authToken,
+    {List<String> tags = const []}) async {
   var res;
   Cookie cookie = Cookie("authentication_token", authToken);
   try {
@@ -23,6 +20,7 @@ Future<dynamic> readNotes(
           'created_at': createdAt,
           'limit': '$limit',
           'offset': '$offset',
+          'tag': tags,
         }),
         headers: {
           "cookie": cookie.toString(),

@@ -4,6 +4,7 @@ import 'package:flutter_application_1/components/homePage/HomePageDrawer.dart';
 import 'package:flutter_application_1/components/homePage/note.dart';
 import 'package:flutter_application_1/data/deleteNote.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
+import 'package:flutter_application_1/pages/SearchPage.dart';
 import 'package:flutter_application_1/pages/createNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
@@ -132,8 +133,6 @@ class HomePageState extends State<HomePage> {
         ));
   }
 
-  int searchState = 0;
-
   @override
   void initState() {
     super.initState();
@@ -153,21 +152,17 @@ class HomePageState extends State<HomePage> {
           backgroundColor: theming.headerColor,
           foregroundColor: Colors.white,
           actions: [
-            AnimatedCrossFade(
-              duration: Duration(milliseconds: 200),
-              firstChild: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  setState(() {
-                    this.searchState = 1;
-                  });
-                },
-              ),
-              secondChild: const FlutterLogo(
-                  style: FlutterLogoStyle.stacked, size: 10.0),
-              crossFadeState: this.searchState == 0
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                            token: widget.stateToken,
+                          )),
+                );
+              },
             ),
           ],
         ),
