@@ -13,7 +13,9 @@ void main() {
       data: MediaQueryData(),
       child: MaterialApp(
           title: 'BetterNotes',
-          theme: ThemeData(canvasColor: Color(0xFF0E1621)),
+          theme: ThemeData(
+            canvasColor: Color(0xFF0E1621),
+          ),
           home: MyApp())));
 }
 

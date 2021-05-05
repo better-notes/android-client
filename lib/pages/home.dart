@@ -157,7 +157,10 @@ class HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchPage()),
+                  MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                            token: widget.stateToken,
+                          )),
                 );
               },
             ),
