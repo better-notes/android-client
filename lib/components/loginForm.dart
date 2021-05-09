@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
 import 'package:flutter_application_1/theming.dart';
 
-class LoginCard extends StatelessWidget {
+enum buttonStates { processing, waitingForClick }
+
+class LoginCard extends StatefulWidget {
   LoginCard({
     required this.enterStateSetter,
     required this.loginController,
@@ -17,11 +19,32 @@ class LoginCard extends StatelessWidget {
   final Function(String, String) setValue;
   final VoidCallback setAppStateHome;
 
+  @override
+  _LoginCardState createState() => _LoginCardState();
+}
+
+class _LoginCardState extends State<LoginCard> {
   final _loginFormKey = GlobalKey<FormState>();
+  var loginButtonState = buttonStates.waitingForClick;
 
   void writeUser(String token) async {
-    await setValue('authToken', token);
-    setAppStateHome();
+    await widget.setValue('authToken', token);
+    widget.setAppStateHome();
+  }
+
+  Widget getLoginButtonChild() {
+    switch (loginButtonState) {
+      case buttonStates.waitingForClick:
+        return Text('Log in');
+      case buttonStates.processing:
+        return SizedBox(
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator.adaptive(),
+        );
+      default:
+        return Text('Log in');
+    }
   }
 
   @override
@@ -69,7 +92,7 @@ class LoginCard extends StatelessWidget {
                                     }
                                     return null;
                                   },
-                                  controller: loginController,
+                                  controller: widget.loginController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
                                           borderRadius:
@@ -99,7 +122,7 @@ class LoginCard extends StatelessWidget {
                                     }
                                     return null;
                                   },
-                                  controller: passwordController,
+                                  controller: widget.passwordController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
                                           borderRadius:
@@ -124,41 +147,52 @@ class LoginCard extends StatelessWidget {
                                           RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                   ))),
-                                  onPressed: () {
-                                    if (_loginFormKey.currentState!
-                                        .validate()) {
-                                      authenticate(
-                                        loginController.text,
-                                        passwordController.text,
-                                      )
-                                          .then((data) => {writeUser(data)})
-                                          .catchError((error) => {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content:
-                                                        Text(error.toString()),
-                                                    duration: Duration(
-                                                        milliseconds: 1500),
-                                                    width:
-                                                        280.0, // Width of the SnackBar.
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            8.0), // Inner padding for SnackBar content.
-                                                    behavior: SnackBarBehavior
-                                                        .floating,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                    ),
-                                                  ),
-                                                )
+                                  onPressed: (loginButtonState ==
+                                          buttonStates.processing)
+                                      ? null
+                                      : () {
+                                          if (_loginFormKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              loginButtonState =
+                                                  buttonStates.processing;
+                                            });
+                                            authenticate(
+                                              widget.loginController.text,
+                                              widget.passwordController.text,
+                                            )
+                                                .then(
+                                                    (data) => {writeUser(data)})
+                                                .catchError((error) {
+                                              setState(() {
+                                                loginButtonState = buttonStates
+                                                    .waitingForClick;
                                               });
-                                    }
-                                  },
-                                  child: const Text('Log in'),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content:
+                                                      Text(error.toString()),
+                                                  duration: Duration(
+                                                      milliseconds: 1500),
+                                                  width:
+                                                      280.0, // Width of the SnackBar.
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          8.0), // Inner padding for SnackBar content.
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                          }
+                                        },
+                                  child: getLoginButtonChild(),
                                 ),
                               ),
                             ),
@@ -179,9 +213,9 @@ class LoginCard extends StatelessWidget {
                                   child: Center(
                                     child: TextButton(
                                       onPressed: () {
-                                        loginController.text = '';
-                                        passwordController.text = '';
-                                        enterStateSetter();
+                                        widget.loginController.clear();
+                                        widget.passwordController.clear();
+                                        widget.enterStateSetter();
                                       },
                                       child: Text(
                                         "Sign up",

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
 import 'package:flutter_application_1/theming.dart';
 
-class SignUpCard extends StatelessWidget {
+enum buttonStates { processing, waitingForClick }
+
+class SignUpCard extends StatefulWidget {
   SignUpCard({
     required this.enterStateSetter,
     required this.loginController,
@@ -18,12 +20,31 @@ class SignUpCard extends StatelessWidget {
   final TextEditingController confirmPasswordController;
   final Function(String, String) setValue;
   final VoidCallback setAppStateHome;
+  @override
+  _SignUpCardState createState() => _SignUpCardState();
+}
 
+class _SignUpCardState extends State<SignUpCard> {
   final _signUpFormKey = GlobalKey<FormState>();
-
+  var signUpButtonState = buttonStates.waitingForClick;
   void writeUser(String token) async {
-    await setValue('authToken', token);
-    setAppStateHome();
+    await widget.setValue('authToken', token);
+    widget.setAppStateHome();
+  }
+
+  Widget getSignUpButtonChild() {
+    switch (signUpButtonState) {
+      case buttonStates.waitingForClick:
+        return Text('Sign up');
+      case buttonStates.processing:
+        return SizedBox(
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator.adaptive(),
+        );
+      default:
+        return Text('Log in');
+    }
   }
 
   @override
@@ -71,7 +92,7 @@ class SignUpCard extends StatelessWidget {
                                     }
                                     return null;
                                   },
-                                  controller: loginController,
+                                  controller: widget.loginController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
                                           borderRadius:
@@ -101,7 +122,7 @@ class SignUpCard extends StatelessWidget {
                                     }
                                     return null;
                                   },
-                                  controller: passwordController,
+                                  controller: widget.passwordController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
                                           borderRadius:
@@ -129,12 +150,13 @@ class SignUpCard extends StatelessWidget {
                                     if (value!.trim().isEmpty) {
                                       return 'Please enter some text';
                                     }
-                                    if (value != passwordController.text) {
+                                    if (value !=
+                                        widget.passwordController.text) {
                                       return 'Passwords do not match';
                                     }
                                     return null;
                                   },
-                                  controller: confirmPasswordController,
+                                  controller: widget.confirmPasswordController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(
                                           borderRadius:
@@ -153,21 +175,38 @@ class SignUpCard extends StatelessWidget {
                                   top: 10, left: 30, bottom: 10, right: 30),
                               child: Center(
                                 child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ))),
-                                  onPressed: () {
-                                    if (_signUpFormKey.currentState!
-                                        .validate()) {
-                                      register(
-                                              loginController.text,
-                                              passwordController.text,
-                                              confirmPasswordController.text)
-                                          .then((data) => {writeUser(data)})
-                                          .catchError((error) => {
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ))),
+                                    onPressed: (signUpButtonState ==
+                                            buttonStates.processing)
+                                        ? null
+                                        : () {
+                                            if (_signUpFormKey.currentState!
+                                                .validate()) {
+                                              setState(() {
+                                                signUpButtonState =
+                                                    buttonStates.processing;
+                                              });
+                                              register(
+                                                      widget
+                                                          .loginController.text,
+                                                      widget.passwordController
+                                                          .text,
+                                                      widget
+                                                          .confirmPasswordController
+                                                          .text)
+                                                  .then((data) =>
+                                                      {writeUser(data)})
+                                                  .catchError((error) {
+                                                setState(() {
+                                                  signUpButtonState =
+                                                      buttonStates
+                                                          .waitingForClick;
+                                                });
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
@@ -189,12 +228,11 @@ class SignUpCard extends StatelessWidget {
                                                               10.0),
                                                     ),
                                                   ),
-                                                )
+                                                );
                                               });
-                                    }
-                                  },
-                                  child: const Text('Sign up'),
-                                ),
+                                            }
+                                          },
+                                    child: getSignUpButtonChild()),
                               ),
                             ),
                           ),
@@ -214,10 +252,11 @@ class SignUpCard extends StatelessWidget {
                                   child: Center(
                                     child: TextButton(
                                       onPressed: () {
-                                        loginController.text = '';
-                                        passwordController.text = '';
-                                        confirmPasswordController.text = '';
-                                        enterStateSetter();
+                                        widget.loginController.clear();
+                                        widget.passwordController.clear();
+                                        widget.confirmPasswordController
+                                            .clear();
+                                        widget.enterStateSetter();
                                       },
                                       child: Text(
                                         "Log in",
