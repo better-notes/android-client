@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_application_1/components/searchPage/searchResults.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 
@@ -21,6 +22,8 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchQueryController = TextEditingController();
   String searchPlaceholder = 'Search by tags';
   var searchPageState;
+  DateTime lastOnChangeDateTime = DateTime.now();
+  late List<Map<String, dynamic>> searchResults;
 
   Widget _buildSearchField() {
     return TextField(
@@ -32,7 +35,8 @@ class _SearchPageState extends State<SearchPage> {
           hintStyle: TextStyle(color: Colors.white30),
         ),
         style: TextStyle(color: Colors.white, fontSize: 16.0),
-        onChanged: (query) async {
+        onChanged: (query) {
+          var onChangeCalledDateTime = DateTime.now();
           var tags = query
               .trim()
               .split(" ")
@@ -42,22 +46,39 @@ class _SearchPageState extends State<SearchPage> {
               .where((element) => element != '')
               .toList();
           if (tags.isEmpty) {
-            await Future.delayed(Duration(milliseconds: 500));
             setState(() {
-              searchPageState = searchPageStates.empty;
+              if (this.lastOnChangeDateTime.isBefore(onChangeCalledDateTime)) {
+                searchPageState = searchPageStates.empty;
+                this.lastOnChangeDateTime = onChangeCalledDateTime;
+              }
             });
           } else {
-            var notes =
-                await readNotes('descending', 20, 0, widget.token, tags: tags);
-            if (notes.length == 0) {
+            readNotes('descending', 20, 0, widget.token, tags: tags)
+                .then((notes) {
               setState(() {
-                searchPageState = searchPageStates.notFound;
+                if (this
+                    .lastOnChangeDateTime
+                    .isBefore(onChangeCalledDateTime)) {
+                  if (notes.length == 0) {
+                    searchPageState = searchPageStates.notFound;
+                    this.lastOnChangeDateTime = onChangeCalledDateTime;
+                  } else {
+                    this.searchResults = notes;
+                    searchPageState = searchPageStates.results;
+                    this.lastOnChangeDateTime = onChangeCalledDateTime;
+                  }
+                }
               });
-            } else {
+            }).catchError((error) {
               setState(() {
-                searchPageState = searchPageStates.results;
+                if (this
+                    .lastOnChangeDateTime
+                    .isBefore(onChangeCalledDateTime)) {
+                  searchPageState = searchPageStates.error;
+                  this.lastOnChangeDateTime = onChangeCalledDateTime;
+                }
               });
-            }
+            });
           }
         });
   }
@@ -81,8 +102,8 @@ class _SearchPageState extends State<SearchPage> {
           ),
         );
       case searchPageStates.results:
-        return Center(
-          child: Text('Results'),
+        return SearchResults(
+          notes: searchResults,
         );
       case searchPageStates.error:
         return Center(
