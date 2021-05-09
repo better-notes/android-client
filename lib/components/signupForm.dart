@@ -252,10 +252,10 @@ class _SignUpCardState extends State<SignUpCard> {
                                   child: Center(
                                     child: TextButton(
                                       onPressed: () {
-                                        widget.loginController.text = '';
-                                        widget.passwordController.text = '';
-                                        widget.confirmPasswordController.text =
-                                            '';
+                                        widget.loginController.clear();
+                                        widget.passwordController.clear();
+                                        widget.confirmPasswordController
+                                            .clear();
                                         widget.enterStateSetter();
                                       },
                                       child: Text(

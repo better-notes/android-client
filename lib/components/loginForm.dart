@@ -213,8 +213,8 @@ class _LoginCardState extends State<LoginCard> {
                                   child: Center(
                                     child: TextButton(
                                       onPressed: () {
-                                        widget.loginController.text = '';
-                                        widget.passwordController.text = '';
+                                        widget.loginController.clear();
+                                        widget.passwordController.clear();
                                         widget.enterStateSetter();
                                       },
                                       child: Text(
