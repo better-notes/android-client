@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_application_1/data/getProfile.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,16 +38,21 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
         body: Container(
       decoration: BoxDecoration(color: theming.headerColor),
       child: Center(
-        child: FutureBuilder<dynamic>(
-          future: readNotes('descending', 20, 0, widget.stateToken),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        child: FutureBuilder<List<dynamic>>(
+          future: Future.wait([
+            getProfile(widget.stateToken),
+            readNotes('descending', 20, 0, widget.stateToken)
+          ]),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
             Widget child;
             if (snapshot.hasData) {
               child = HomePage(
-                notes: snapshot.data,
+                notes: snapshot.data![1],
                 stateToken: widget.stateToken,
                 removeValue: widget.removeValue,
                 setStateToEnter: widget.setStateToEnter,
+                userInfo: snapshot.data![0],
               );
             } else if (snapshot.hasError) {
               switch (snapshot.error) {
