@@ -6,19 +6,31 @@ import 'package:flutter_application_1/pages/about.dart';
 import 'package:flutter_application_1/pages/features.dart';
 import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class HomePageDrawer extends StatelessWidget {
   HomePageDrawer({
     required this.removeValue,
     required this.setStateToEnter,
+    required this.userInfo,
   });
   final Function(String) removeValue;
   final VoidCallback setStateToEnter;
+  final Map<String, dynamic> userInfo;
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
-    height: 10,
-    width: 10,
+    height: 40,
+    width: 40,
   );
+
+  Widget formatDate(String dateString) {
+    var date = DateTime.parse(dateString);
+    return Text(
+      DateFormat('dd-MM-yyyy').format(date),
+      style: TextStyle(color: Colors.white),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -29,7 +41,50 @@ class HomePageDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                  child: appLogo,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: appLogo,
+                        ),
+                        Center(
+                          child: Text(
+                            'Better Notes',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            Text(
+                              'Account:',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Spacer(),
+                            Text(
+                              this.userInfo['username'],
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Created at:',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Spacer(),
+                            formatDate(userInfo['created_at']),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   decoration: BoxDecoration(
                     color: theming.headerColor,
                   ),

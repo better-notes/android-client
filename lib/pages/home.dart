@@ -15,11 +15,13 @@ class HomePage extends StatefulWidget {
     required this.stateToken,
     required this.removeValue,
     required this.setStateToEnter,
+    required this.userInfo,
   });
   final List<Map<String, dynamic>> notes;
   final String stateToken;
   final Function(String) removeValue;
   final VoidCallback setStateToEnter;
+  final Map<String, dynamic> userInfo;
 
   @override
   HomePageState createState() => HomePageState();
@@ -146,6 +148,7 @@ class HomePageState extends State<HomePage> {
         drawer: HomePageDrawer(
           removeValue: widget.removeValue,
           setStateToEnter: widget.setStateToEnter,
+          userInfo: widget.userInfo,
         ),
         appBar: AppBar(
           title: Text('Better Notes'),
