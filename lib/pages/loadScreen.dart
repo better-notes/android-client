@@ -4,7 +4,7 @@ import 'package:flutter_application_1/data/getProfile.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
+// import 'package:flutter_application_1/theming.dart' as theming;
 
 class LoadScreenPage extends StatefulWidget {
   LoadScreenPage({
@@ -36,7 +36,7 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(color: theming.headerColor),
+      // decoration: BoxDecoration(color: theming.headerColor),
       child: Center(
         child: FutureBuilder<List<dynamic>>(
           future: Future.wait([
@@ -67,12 +67,12 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                     children: [
                       Icon(
                         Icons.cloud_off,
-                        color: Colors.white,
+                        // color: Colors.white,
                         size: 50,
                       ),
                       Text(
                         'Network error. Please try again',
-                        style: TextStyle(color: Colors.white),
+                        // style: TextStyle(color: Colors.white),
                       ),
                       ElevatedButton(
                         child: Text('Retry'),
@@ -91,8 +91,8 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                   children: [
                     SizedBox(
                       child: CircularProgressIndicator(
-                        backgroundColor: theming.headerColor,
-                      ),
+                          // backgroundColor: theming.headerColor,
+                          ),
                       height: 100.0,
                       width: 100.0,
                     ),

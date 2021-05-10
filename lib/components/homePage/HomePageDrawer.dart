@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/about.dart';
 import 'package:flutter_application_1/pages/features.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
+// import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
@@ -27,7 +27,7 @@ class HomePageDrawer extends StatelessWidget {
     var date = DateTime.parse(dateString);
     return Text(
       DateFormat('dd-MM-yyyy').format(date),
-      style: TextStyle(color: Colors.white),
+      // style: TextStyle(color: Colors.white),
     );
   }
 
@@ -53,7 +53,7 @@ class HomePageDrawer extends StatelessWidget {
                           child: Text(
                             'Better Notes',
                             style: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontSize: 20,
                             ),
                           ),
@@ -63,12 +63,12 @@ class HomePageDrawer extends StatelessWidget {
                           children: [
                             Text(
                               'Account:',
-                              style: TextStyle(color: Colors.grey),
+                              // style: TextStyle(color: Colors.grey),
                             ),
                             Spacer(),
                             Text(
                               this.userInfo['username'],
-                              style: TextStyle(color: Colors.white),
+                              // style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -76,7 +76,7 @@ class HomePageDrawer extends StatelessWidget {
                           children: [
                             Text(
                               'Created at:',
-                              style: TextStyle(color: Colors.grey),
+                              // style: TextStyle(color: Colors.grey),
                             ),
                             Spacer(),
                             formatDate(userInfo['created_at']),
@@ -86,17 +86,17 @@ class HomePageDrawer extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: theming.headerColor,
-                  ),
+                      // color: theming.headerColor,
+                      ),
                 ),
                 ListTile(
                   leading: Icon(
                     Icons.book,
-                    color: Color(0xFFA4A4A4),
+                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'About',
-                    style: TextStyle(color: Colors.white),
+                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -108,11 +108,11 @@ class HomePageDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.info,
-                    color: Color(0xFFA4A4A4),
+                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'Better Notes Features',
-                    style: TextStyle(color: Colors.white),
+                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -124,18 +124,18 @@ class HomePageDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.logout,
-                    color: Color(0xFFA4A4A4),
+                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'Log out',
-                    style: TextStyle(color: Colors.white),
+                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () async {
                     await removeValue('authToken');
                     setStateToEnter();
                   },
                 ),
-                Divider(color: Colors.black),
+                Divider(),
               ],
             ),
           ),
@@ -149,7 +149,7 @@ class HomePageDrawer extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Better Notes v1.0.0+1',
-                        style: TextStyle(color: Colors.grey),
+                        // style: TextStyle(color: Colors.grey),
                       ),
                     )
                   ],

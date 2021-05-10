@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/NotePage.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
+// import 'package:flutter_application_1/theming.dart' as theming;
 
 class Note extends StatefulWidget {
   Note({
@@ -29,7 +29,7 @@ class _NoteState extends State<Note> {
             alignment: WrapAlignment.start,
             children: widget.note['tags']
                 .map<Widget>((tag) => new Card(
-                      color: Color(0xFF0E1621),
+                      // color: Color(0xFF0E1621),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -38,7 +38,7 @@ class _NoteState extends State<Note> {
                             top: 1, bottom: 1, left: 10, right: 10),
                         child: Text(
                           tag['name'],
-                          style: TextStyle(color: Colors.white, fontSize: 10),
+                          style: TextStyle(fontSize: 10),
                         ),
                       ),
                     ))
@@ -62,7 +62,7 @@ class _NoteState extends State<Note> {
         );
       },
       child: Card(
-        color: theming.inputColor,
+        // color: theming.inputColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -75,7 +75,7 @@ class _NoteState extends State<Note> {
                   child: Text(
                     widget.note["text"],
                     maxLines: 20,
-                    style: TextStyle(color: Colors.white),
+                    // style: TextStyle(color: Colors.white),
                   ),
                 ),
                 Container(

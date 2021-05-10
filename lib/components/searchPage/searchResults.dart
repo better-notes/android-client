@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/theming.dart';
+// import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SearchResults extends StatefulWidget {
@@ -16,8 +16,8 @@ class _SearchResultsState extends State<SearchResults> {
       itemCount: widget.notes.length,
       separatorBuilder: (context, index) {
         return Divider(
-          color: Colors.grey,
-        );
+            // color: Colors.grey,
+            );
       },
       itemBuilder: (context, index) {
         var item = widget.notes[index];
@@ -41,7 +41,7 @@ class _SearchResultsState extends State<SearchResults> {
                 actions: <Widget>[
                   IconSlideAction(
                     caption: 'Archive',
-                    color: Colors.blue,
+                    // color: Colors.blue,
                     icon: Icons.archive,
                   ),
                 ],
@@ -49,7 +49,7 @@ class _SearchResultsState extends State<SearchResults> {
                 child: ListTile(
                   title: Text(
                     item['text'],
-                    style: TextStyle(color: Colors.white),
+                    // style: TextStyle(color: Colors.white),
                   ),
                 ),
               )),
@@ -67,14 +67,14 @@ class NoteDetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Note'),
-          backgroundColor: headerColor,
-          foregroundColor: Colors.white,
+          // backgroundColor: headerColor,
+          // foregroundColor: Colors.white,
         ),
         body: Container(
           child: Padding(
             child: Text(
               note['text'],
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              // style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             padding: EdgeInsets.all(10),
           ),

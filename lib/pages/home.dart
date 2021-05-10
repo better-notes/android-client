@@ -7,7 +7,7 @@ import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/pages/SearchPage.dart';
 import 'package:flutter_application_1/pages/createNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
+// import 'package:flutter_application_1/theming.dart' as theming;
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -107,7 +107,7 @@ class HomePageState extends State<HomePage> {
                   });
                 },
                 background: Container(
-                  color: Color(0xFF0E1621),
+                  // color: Color(0xFF0E1621),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -115,7 +115,7 @@ class HomePageState extends State<HomePage> {
                         padding: EdgeInsets.only(right: 10),
                         child: Icon(
                           Icons.delete,
-                          color: Colors.redAccent,
+                          // color: Colors.redAccent,
                         ),
                       )
                     ],
@@ -152,8 +152,8 @@ class HomePageState extends State<HomePage> {
         ),
         appBar: AppBar(
           title: Text('Better Notes'),
-          backgroundColor: theming.headerColor,
-          foregroundColor: Colors.white,
+          // backgroundColor: theming.headerColor,
+          // foregroundColor: Colors.white,
           actions: [
             IconButton(
               icon: Icon(Icons.search),
@@ -181,10 +181,10 @@ class HomePageState extends State<HomePage> {
             );
           },
           child: const Icon(Icons.add),
-          backgroundColor: theming.inputColor,
+          // backgroundColor: theming.inputColor,
         ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xFF0E1621)),
+          // decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Container(
             child: renderNotes(),
           ),

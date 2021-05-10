@@ -5,18 +5,36 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/enter.dart';
 import 'package:flutter_application_1/pages/loadScreen.dart';
 import 'package:flutter_application_1/pages/preload.dart';
+import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MediaQuery(
       data: MediaQueryData(),
-      child: MaterialApp(
-          title: 'BetterNotes',
-          theme: ThemeData(
-            canvasColor: Color(0xFF0E1621),
-          ),
-          home: MyApp())));
+      child: ChangeNotifierProvider<ThemeChanger>(
+        create: (_) => ThemeChanger(),
+        child: Builder(
+          builder: (BuildContext context) {
+            final themeChanger = Provider.of<ThemeChanger>(context);
+            return MaterialApp(
+                title: 'BetterNotes',
+                themeMode: themeChanger.getTheme,
+                theme: ThemeData(
+                  canvasColor: Color(0xFFF0F7F3),
+                  primaryColor: Colors.cyan,
+                  brightness: Brightness.dark,
+                  primarySwatch: Colors.orange,
+                ),
+                darkTheme: ThemeData(
+                  canvasColor: Color(0xFF0E1621),
+                  brightness: Brightness.dark,
+                ),
+                home: MyApp());
+          },
+        ),
+      )));
 }
 
 enum appPageState { home, enter, preload }
