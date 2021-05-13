@@ -4,19 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/about.dart';
 import 'package:flutter_application_1/pages/features.dart';
-// import 'package:flutter_application_1/theming.dart' as theming;
+import 'package:flutter_application_1/theming.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomePageDrawer extends StatelessWidget {
   HomePageDrawer({
     required this.removeValue,
     required this.setStateToEnter,
     required this.userInfo,
+    required this.storage,
   });
   final Function(String) removeValue;
   final VoidCallback setStateToEnter;
   final Map<String, dynamic> userInfo;
+  final FlutterSecureStorage storage;
+
   final Widget appLogo = SvgPicture.asset(
     'assets/grid-dynamic.svg',
     height: 40,
@@ -27,12 +32,29 @@ class HomePageDrawer extends StatelessWidget {
     var date = DateTime.parse(dateString);
     return Text(
       DateFormat('dd-MM-yyyy').format(date),
-      // style: TextStyle(color: Colors.white),
     );
+  }
+
+  bool themeToBoolean(ThemeChanger themechanger) {
+    if (themechanger.getTheme == ThemeMode.dark) {
+      return true;
+    }
+    return false;
+  }
+
+  toggleTheme(bool value, ThemeChanger themechanger) async {
+    if (value == true) {
+      themechanger.setTheme(ThemeMode.dark);
+      await storage.write(key: 'isDarkModeOn', value: 'true');
+    } else {
+      themechanger.setTheme(ThemeMode.light);
+      await storage.write(key: 'isDarkModeOn', value: 'false');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Drawer(
       child: Column(
         children: [
@@ -53,7 +75,6 @@ class HomePageDrawer extends StatelessWidget {
                           child: Text(
                             'Better Notes',
                             style: TextStyle(
-                              // color: Colors.white,
                               fontSize: 20,
                             ),
                           ),
@@ -63,12 +84,10 @@ class HomePageDrawer extends StatelessWidget {
                           children: [
                             Text(
                               'Account:',
-                              // style: TextStyle(color: Colors.grey),
                             ),
                             Spacer(),
                             Text(
                               this.userInfo['username'],
-                              // style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -76,7 +95,6 @@ class HomePageDrawer extends StatelessWidget {
                           children: [
                             Text(
                               'Created at:',
-                              // style: TextStyle(color: Colors.grey),
                             ),
                             Spacer(),
                             formatDate(userInfo['created_at']),
@@ -85,18 +103,14 @@ class HomePageDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  decoration: BoxDecoration(
-                      // color: theming.headerColor,
-                      ),
+                  decoration: BoxDecoration(),
                 ),
                 ListTile(
                   leading: Icon(
                     Icons.book,
-                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'About',
-                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -108,11 +122,9 @@ class HomePageDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.info,
-                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'Better Notes Features',
-                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -124,17 +136,26 @@ class HomePageDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.logout,
-                    // color: Color(0xFFA4A4A4),
                   ),
                   title: Text(
                     'Log out',
-                    // style: TextStyle(color: Colors.white),
                   ),
                   onTap: () async {
                     await removeValue('authToken');
                     setStateToEnter();
                   },
                 ),
+                SwitchListTile(
+                    secondary: Icon(
+                      Icons.brightness_2_outlined,
+                    ),
+                    title: Text(
+                      'Dark mode',
+                    ),
+                    value: themeToBoolean(themeChanger),
+                    onChanged: (bool value) {
+                      toggleTheme(value, themeChanger);
+                    }),
                 Divider(),
               ],
             ),
@@ -149,7 +170,6 @@ class HomePageDrawer extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Better Notes v1.0.0+1',
-                        // style: TextStyle(color: Colors.grey),
                       ),
                     )
                   ],

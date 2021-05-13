@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SearchResults extends StatefulWidget {
@@ -15,9 +14,7 @@ class _SearchResultsState extends State<SearchResults> {
     return ListView.separated(
       itemCount: widget.notes.length,
       separatorBuilder: (context, index) {
-        return Divider(
-            // color: Colors.grey,
-            );
+        return Divider();
       },
       itemBuilder: (context, index) {
         var item = widget.notes[index];
@@ -35,13 +32,10 @@ class _SearchResultsState extends State<SearchResults> {
                     child: SlidableDrawerDismissal(
                       key: Key(item['id_'].toString()),
                     ),
-                    onDismissed: (actionType) {
-//
-                    }),
+                    onDismissed: (actionType) {}),
                 actions: <Widget>[
                   IconSlideAction(
                     caption: 'Archive',
-                    // color: Colors.blue,
                     icon: Icons.archive,
                   ),
                 ],
@@ -49,7 +43,6 @@ class _SearchResultsState extends State<SearchResults> {
                 child: ListTile(
                   title: Text(
                     item['text'],
-                    // style: TextStyle(color: Colors.white),
                   ),
                 ),
               )),
@@ -67,14 +60,11 @@ class NoteDetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Note'),
-          // backgroundColor: headerColor,
-          // foregroundColor: Colors.white,
         ),
         body: Container(
           child: Padding(
             child: Text(
               note['text'],
-              // style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             padding: EdgeInsets.all(10),
           ),

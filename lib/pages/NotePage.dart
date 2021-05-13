@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/EditNotePage.dart';
-// import 'package:flutter_application_1/theming.dart' as theming;
 
 class NotePage extends StatefulWidget {
   NotePage({
@@ -29,7 +28,6 @@ class _NotePageState extends State<NotePage> {
             alignment: WrapAlignment.start,
             children: widget.note['tags']
                 .map<Widget>((tag) => new Card(
-                      // color: theming.inputColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -50,8 +48,6 @@ class _NotePageState extends State<NotePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Note'),
-          // backgroundColor: theming.headerColor,
-          // foregroundColor: Colors.white,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -67,13 +63,10 @@ class _NotePageState extends State<NotePage> {
             );
           },
           child: const Icon(Icons.edit),
-          // backgroundColor: theming.inputColor,
         ),
         body: Container(
-          // decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Container(
             child: Card(
-              // color: Color(0xFF0E1621),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),

@@ -6,22 +6,23 @@ import 'package:flutter_application_1/data/deleteNote.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
 import 'package:flutter_application_1/pages/SearchPage.dart';
 import 'package:flutter_application_1/pages/createNote.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:flutter_application_1/theming.dart' as theming;
 
 class HomePage extends StatefulWidget {
-  HomePage({
-    required this.notes,
-    required this.stateToken,
-    required this.removeValue,
-    required this.setStateToEnter,
-    required this.userInfo,
-  });
+  HomePage(
+      {required this.notes,
+      required this.stateToken,
+      required this.removeValue,
+      required this.setStateToEnter,
+      required this.userInfo,
+      required this.storage});
   final List<Map<String, dynamic>> notes;
   final String stateToken;
   final Function(String) removeValue;
   final VoidCallback setStateToEnter;
   final Map<String, dynamic> userInfo;
+  final FlutterSecureStorage storage;
 
   @override
   HomePageState createState() => HomePageState();
@@ -107,7 +108,6 @@ class HomePageState extends State<HomePage> {
                   });
                 },
                 background: Container(
-                  // color: Color(0xFF0E1621),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -115,7 +115,6 @@ class HomePageState extends State<HomePage> {
                         padding: EdgeInsets.only(right: 10),
                         child: Icon(
                           Icons.delete,
-                          // color: Colors.redAccent,
                         ),
                       )
                     ],
@@ -149,11 +148,10 @@ class HomePageState extends State<HomePage> {
           removeValue: widget.removeValue,
           setStateToEnter: widget.setStateToEnter,
           userInfo: widget.userInfo,
+          storage: widget.storage,
         ),
         appBar: AppBar(
           title: Text('Better Notes'),
-          // backgroundColor: theming.headerColor,
-          // foregroundColor: Colors.white,
           actions: [
             IconButton(
               icon: Icon(Icons.search),
@@ -181,10 +179,8 @@ class HomePageState extends State<HomePage> {
             );
           },
           child: const Icon(Icons.add),
-          // backgroundColor: theming.inputColor,
         ),
         body: Container(
-          // decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Container(
             child: renderNotes(),
           ),
