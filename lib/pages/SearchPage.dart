@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/components/searchPage/searchResults.dart';
 import 'package:flutter_application_1/data/readNotes.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
 
 enum searchPageStates {
   empty,
@@ -32,17 +31,13 @@ class _SearchPageState extends State<SearchPage> {
         decoration: InputDecoration(
           hintText: "Search by #tags...",
           border: InputBorder.none,
-          hintStyle: TextStyle(color: Colors.white30),
         ),
-        style: TextStyle(color: Colors.white, fontSize: 16.0),
+        style: TextStyle(fontSize: 16.0),
         onChanged: (query) {
           var onChangeCalledDateTime = DateTime.now();
           var tags = query
               .trim()
               .split(" ")
-              // The array is filtered because the split
-              // method will not make the array empty, but will
-              // put a single value with an empty string.
               .where((element) => element != '')
               .toList();
           if (tags.isEmpty) {
@@ -90,7 +85,6 @@ class _SearchPageState extends State<SearchPage> {
           child: Icon(
             Icons.search,
             size: 40,
-            color: Colors.grey,
           ),
         );
       case searchPageStates.notFound:
@@ -98,7 +92,6 @@ class _SearchPageState extends State<SearchPage> {
           child: Icon(
             Icons.error,
             size: 40,
-            color: Colors.grey,
           ),
         );
       case searchPageStates.results:
@@ -127,10 +120,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         appBar: AppBar(
           title: _buildSearchField(),
-          backgroundColor: theming.headerColor,
         ),
-        body: Container(
-            decoration: BoxDecoration(color: Color(0xFF0E1621)),
-            child: _buildSearchPage()));
+        body: Container(child: _buildSearchPage()));
   }
 }

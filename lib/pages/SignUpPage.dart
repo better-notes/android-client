@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accounts/services.dart';
-import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 enum buttonStates { processing, waitingForClick }
@@ -54,12 +53,10 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(
         centerTitle: true,
         title: appLogo,
-        backgroundColor: headerColor,
         foregroundColor: Colors.white,
       ),
       body: Container(
           decoration: BoxDecoration(
-            color: Color(0xFF0E1621),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(
@@ -70,10 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Padding(
                     child: Text(
                       'Sing up',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     padding: EdgeInsets.all(10),
                   ),
@@ -93,7 +88,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     autofillHints: <String>[
                                       AutofillHints.username,
                                     ],
-                                    style: TextStyle(color: Colors.white),
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return 'Please enter some text';
@@ -102,13 +96,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     },
                                     controller: widget.loginController,
                                     decoration: InputDecoration(
-                                        border: UnderlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        icon: Icon(Icons.person),
-                                        hintText: 'Login',
-                                        filled: true,
-                                        fillColor: inputColor),
+                                      border: UnderlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      icon: Icon(Icons.person),
+                                      hintText: 'Login',
+                                      filled: true,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -122,7 +116,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     autofillHints: <String>[
                                       AutofillHints.password
                                     ],
-                                    style: TextStyle(color: Colors.white),
                                     obscureText: true,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
@@ -132,13 +125,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     },
                                     controller: widget.passwordController,
                                     decoration: InputDecoration(
-                                        border: UnderlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        icon: Icon(Icons.lock),
-                                        hintText: 'Password',
-                                        filled: true,
-                                        fillColor: inputColor),
+                                      border: UnderlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      icon: Icon(Icons.lock),
+                                      hintText: 'Password',
+                                      filled: true,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -152,7 +145,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     autofillHints: <String>[
                                       AutofillHints.password
                                     ],
-                                    style: TextStyle(color: Colors.white),
                                     obscureText: true,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
@@ -167,13 +159,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     controller:
                                         widget.confirmPasswordController,
                                     decoration: InputDecoration(
-                                        border: UnderlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        icon: Icon(Icons.lock),
-                                        hintText: 'Confirm password',
-                                        filled: true,
-                                        fillColor: inputColor),
+                                      border: UnderlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      icon: Icon(Icons.lock),
+                                      hintText: 'Confirm password',
+                                      filled: true,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -226,11 +218,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                                           error.toString()),
                                                       duration: Duration(
                                                           milliseconds: 1500),
-                                                      width:
-                                                          280.0, // Width of the SnackBar.
-                                                      padding: EdgeInsets.symmetric(
-                                                          horizontal:
-                                                              8.0), // Inner padding for SnackBar content.
+                                                      width: 280.0,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 8.0),
                                                       behavior: SnackBarBehavior
                                                           .floating,
                                                       shape:
@@ -256,7 +247,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     child: Center(
                                       child: Text(
                                         "Already have an account?",
-                                        style: TextStyle(color: Colors.grey),
                                       ),
                                     ),
                                   ),
@@ -272,8 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         },
                                         child: Text(
                                           "Log in",
-                                          style: TextStyle(
-                                              color: Colors.blueAccent),
+                                          style: TextStyle(),
                                         ),
                                       ),
                                     ),

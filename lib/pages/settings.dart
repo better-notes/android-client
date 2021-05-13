@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
@@ -24,18 +23,14 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Settings'),
-          backgroundColor: theming.headerColor,
-          foregroundColor: Colors.white,
         ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Container(
               child: ListView(
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: Material(
-                    color: theming.inputColor,
                     child: InkWell(
                       onTap: () async {
                         Navigator.pop(context);
@@ -44,11 +39,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         widget.setStateToEnter();
                       },
                       child: ListTile(
-                        trailing: Icon(Icons.logout, color: Colors.white),
-                        tileColor: Colors.transparent,
                         title: Text(
                           'Log out',
-                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),

@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/data/editNote.dart';
 import 'package:flutter_application_1/note/parseNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
 import 'package:hashtagable/hashtagable.dart';
 
 class EditNotePage extends StatefulWidget {
@@ -41,8 +40,6 @@ class _EditNotePageState extends State<EditNotePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Note'),
-          backgroundColor: theming.headerColor,
-          foregroundColor: Colors.white,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -73,16 +70,13 @@ class _EditNotePageState extends State<EditNotePage> {
             }
           },
           child: const Icon(Icons.save),
-          backgroundColor: theming.inputColor,
         ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Column(
             children: [
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Card(
-                    color: theming.inputColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -92,15 +86,13 @@ class _EditNotePageState extends State<EditNotePage> {
                         key: editNoteFormKey,
                         child: TextFormField(
                           controller: editNoteConroller,
-                          style: TextStyle(color: Colors.white),
                           keyboardType: TextInputType.multiline,
                           maxLines: 13,
                           maxLength: 10000,
                           decoration: const InputDecoration(
                               hintText: 'Enter your note...',
                               focusedBorder: const UnderlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.blueGrey))),
+                                  borderSide: const BorderSide())),
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';

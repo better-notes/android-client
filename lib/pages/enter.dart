@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/SignUpPage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/accounts/services.dart';
-import 'package:flutter_application_1/theming.dart' as theming;
 
 enum buttonStates { processing, waitingForClick }
 
@@ -57,16 +56,12 @@ class _EnterPageState extends State<EnterPage> {
     return Scaffold(
         appBar: AppBar(
           title: Center(child: appLogo),
-          backgroundColor: theming.headerColor,
-          foregroundColor: Colors.white,
         ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xFF0E1621)),
           child: Container(
             child: Center(
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFF0E1621),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
@@ -78,9 +73,7 @@ class _EnterPageState extends State<EnterPage> {
                               child: Text(
                                 'Log in',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                               padding: EdgeInsets.all(10),
                             ),
@@ -101,8 +94,6 @@ class _EnterPageState extends State<EnterPage> {
                                               autofillHints: <String>[
                                                 AutofillHints.username,
                                               ],
-                                              style: TextStyle(
-                                                  color: Colors.white),
                                               validator: (value) {
                                                 if (value!.trim().isEmpty) {
                                                   return 'Please enter some text';
@@ -112,15 +103,14 @@ class _EnterPageState extends State<EnterPage> {
                                               controller:
                                                   this.loginLoginController,
                                               decoration: InputDecoration(
-                                                  border: UnderlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0)),
-                                                  icon: Icon(Icons.person),
-                                                  hintText: 'Login',
-                                                  filled: true,
-                                                  fillColor:
-                                                      theming.inputColor),
+                                                border: UnderlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0)),
+                                                icon: Icon(Icons.person),
+                                                hintText: 'Login',
+                                                filled: true,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -135,8 +125,6 @@ class _EnterPageState extends State<EnterPage> {
                                               autofillHints: <String>[
                                                 AutofillHints.password
                                               ],
-                                              style: TextStyle(
-                                                  color: Colors.white),
                                               obscureText: true,
                                               validator: (value) {
                                                 if (value!.trim().isEmpty) {
@@ -147,15 +135,14 @@ class _EnterPageState extends State<EnterPage> {
                                               controller:
                                                   this.loginPasswordController,
                                               decoration: InputDecoration(
-                                                  border: UnderlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0)),
-                                                  icon: Icon(Icons.lock),
-                                                  hintText: 'Password',
-                                                  filled: true,
-                                                  fillColor:
-                                                      theming.inputColor),
+                                                border: UnderlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0)),
+                                                icon: Icon(Icons.lock),
+                                                hintText: 'Password',
+                                                filled: true,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -216,12 +203,11 @@ class _EnterPageState extends State<EnterPage> {
                                                               duration: Duration(
                                                                   milliseconds:
                                                                       1500),
-                                                              width:
-                                                                  280.0, // Width of the SnackBar.
+                                                              width: 280.0,
                                                               padding: EdgeInsets
                                                                   .symmetric(
                                                                       horizontal:
-                                                                          8.0), // Inner padding for SnackBar content.
+                                                                          8.0),
                                                               behavior:
                                                                   SnackBarBehavior
                                                                       .floating,
@@ -251,8 +237,6 @@ class _EnterPageState extends State<EnterPage> {
                                               child: Center(
                                                 child: Text(
                                                   "Don't have an account?",
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
                                                 ),
                                               ),
                                             ),
@@ -289,9 +273,6 @@ class _EnterPageState extends State<EnterPage> {
                                                   },
                                                   child: Text(
                                                     "Sign up",
-                                                    style: TextStyle(
-                                                        color:
-                                                            Colors.blueAccent),
                                                   ),
                                                 ),
                                               ),
