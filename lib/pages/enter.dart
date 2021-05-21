@@ -107,7 +107,9 @@ class _EnterPageState extends State<EnterPage> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15.0)),
-                                                icon: Icon(Icons.person),
+                                                icon: Icon(
+                                                  Icons.person,
+                                                ),
                                                 hintText: 'Login',
                                                 filled: true,
                                               ),
@@ -139,7 +141,9 @@ class _EnterPageState extends State<EnterPage> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15.0)),
-                                                icon: Icon(Icons.lock),
+                                                icon: Icon(
+                                                  Icons.lock,
+                                                ),
                                                 hintText: 'Password',
                                                 filled: true,
                                               ),

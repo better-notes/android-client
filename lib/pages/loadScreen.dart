@@ -90,7 +90,9 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                   alignment: AlignmentDirectional.center,
                   children: [
                     SizedBox(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ),
                       height: 100.0,
                       width: 100.0,
                     ),
