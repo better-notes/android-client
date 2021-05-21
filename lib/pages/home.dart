@@ -151,7 +151,9 @@ class HomePageState extends State<HomePage> {
           storage: widget.storage,
         ),
         appBar: AppBar(
-          title: Text('Better Notes'),
+          title: Text(
+            'Better Notes',
+          ),
           actions: [
             IconButton(
               icon: Icon(Icons.search),
