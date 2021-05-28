@@ -32,6 +32,7 @@ class _SearchPageState extends State<SearchPage> {
           hintText: "Search by #tags...",
           border: InputBorder.none,
         ),
+        textCapitalization: TextCapitalization.sentences,
         style: TextStyle(fontSize: 16.0),
         onChanged: (query) {
           var onChangeCalledDateTime = DateTime.now();
