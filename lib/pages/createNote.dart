@@ -74,6 +74,7 @@ class _AddNotePageState extends State<AddNotePage> {
                         key: createNoteFormKey,
                         child: TextFormField(
                           controller: createNoteConroller,
+                          textCapitalization: TextCapitalization.sentences,
                           keyboardType: TextInputType.multiline,
                           maxLines: 13,
                           maxLength: 10000,
