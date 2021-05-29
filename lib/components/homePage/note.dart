@@ -60,6 +60,7 @@ class _NoteState extends State<Note> {
         );
       },
       child: Card(
+        color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

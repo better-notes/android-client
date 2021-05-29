@@ -11,8 +11,12 @@ enum searchPageStates {
 }
 
 class SearchPage extends StatefulWidget {
-  SearchPage({required this.token});
+  SearchPage({
+    required this.token,
+    required this.refreshNotes,
+  });
   final String token;
+  final Function refreshNotes;
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -23,6 +27,29 @@ class _SearchPageState extends State<SearchPage> {
   var searchPageState;
   DateTime lastOnChangeDateTime = DateTime.now();
   late List<Map<String, dynamic>> searchResults;
+  List<String> searchTags = [];
+
+  void updateNote(Map<String, dynamic> note, int index) {
+    setState(() {
+      searchResults[index] = note;
+    });
+    widget.refreshNotes();
+  }
+
+  void getNewNotes(int offset) {
+    readNotes('descending', 20, offset, widget.token, tags: searchTags)
+        .then((value) => {
+              value.forEach((note) {
+                setState(() {
+                  searchResults.add(note);
+                });
+              })
+            })
+        .catchError((error) => {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("$error")))
+            });
+  }
 
   Widget _buildSearchField() {
     return TextField(
@@ -32,7 +59,6 @@ class _SearchPageState extends State<SearchPage> {
           hintText: "Search by #tags...",
           border: InputBorder.none,
         ),
-        textCapitalization: TextCapitalization.sentences,
         style: TextStyle(fontSize: 16.0),
         onChanged: (query) {
           var onChangeCalledDateTime = DateTime.now();
@@ -59,6 +85,7 @@ class _SearchPageState extends State<SearchPage> {
                     searchPageState = searchPageStates.notFound;
                     this.lastOnChangeDateTime = onChangeCalledDateTime;
                   } else {
+                    this.searchTags = tags;
                     this.searchResults = notes;
                     searchPageState = searchPageStates.results;
                     this.lastOnChangeDateTime = onChangeCalledDateTime;
@@ -98,6 +125,10 @@ class _SearchPageState extends State<SearchPage> {
       case searchPageStates.results:
         return SearchResults(
           notes: searchResults,
+          stateToken: widget.token,
+          getNewNotes: getNewNotes,
+          updateNote: updateNote,
+          refreshNotes: widget.refreshNotes,
         );
       case searchPageStates.error:
         return Center(
