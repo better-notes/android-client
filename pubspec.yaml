@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.3
   rich_input: ^1.2.1
   flutter_launcher_icons: ^0.9.0
-  hashtagable: ^2.0.2
 
 dev_dependencies:
   flutter_test:
