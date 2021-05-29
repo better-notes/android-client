@@ -163,6 +163,7 @@ class HomePageState extends State<HomePage> {
                   MaterialPageRoute(
                       builder: (context) => SearchPage(
                             token: widget.stateToken,
+                            refreshNotes: refreshNotes,
                           )),
                 );
               },
