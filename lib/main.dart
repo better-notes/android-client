@@ -63,10 +63,10 @@ void main() {
                     brightness: Brightness.dark,
                     visualDensity:
                         VisualDensity(vertical: 0.5, horizontal: 0.5),
-                    primaryColor: Color(0xFF202124),
+                    primaryColor: Color(0xFF424240),
                     primaryColorBrightness: Brightness.dark,
-                    primaryColorLight: Color(0xFF202124),
-                    primaryColorDark: Color(0xFF202124),
+                    primaryColorLight: Color(0xFF424240),
+                    primaryColorDark: Color(0xFF424240),
                     canvasColor: Color(0xFF202124),
                     accentColor: Color(0xFFFFC700),
                     accentColorBrightness: Brightness.dark,
