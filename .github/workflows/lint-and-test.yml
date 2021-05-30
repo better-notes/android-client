@@ -1,11 +1,11 @@
-name: Lint & Build
+name: Lint & Test
 
 on:
   - push
 
 jobs:
   lint:
-    name: Lint & Build
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
