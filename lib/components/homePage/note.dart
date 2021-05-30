@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/pages/NotePage.dart';
+import 'package:intl/intl.dart';
 
 class Note extends StatefulWidget {
+
+  final Map<String, dynamic> note;
+  final int index;
+  final List<Map<String, dynamic>> notes;
+  final Function(Map<String, dynamic>, int) updateNote;
+  final String stateToken;
+
   Note({
     required this.note,
     required this.index,
@@ -10,16 +18,13 @@ class Note extends StatefulWidget {
     required this.updateNote,
     required this.stateToken,
   });
-  final Map<String, dynamic> note;
-  final int index;
-  final List<Map<String, dynamic>> notes;
-  final Function(Map<String, dynamic>, int) updateNote;
-  final String stateToken;
+
   @override
   _NoteState createState() => _NoteState();
 }
 
 class _NoteState extends State<Note> {
+
   Widget getTags() {
     return Padding(
         padding: EdgeInsets.only(top: 5),
@@ -41,6 +46,24 @@ class _NoteState extends State<Note> {
                       ),
                     ))
                 .toList()));
+  }
+  Widget formatDate(String utfDate) {
+    String dateString;
+    var now = DateTime.now();
+    var date = DateTime.parse(utfDate).add(now.timeZoneOffset);
+    if(now.year == date.year && now.month == date.month && now.day == date.day){
+      dateString = DateFormat('HH:mm').format(date);
+    } else if(now.year == date.year && now.month == date.month && now.day - date.day < 7){
+      dateString = DateFormat('EE, HH:mm').format(date);
+    } else if(now.year == date.year){
+      dateString = DateFormat('dd/MM').format(date);
+    } else {
+      dateString = DateFormat('dd/MM/YY').format(date);
+    }
+    return Text(
+      dateString,
+      style: TextStyle(fontSize: 10),
+    );
   }
 
   @override
@@ -75,9 +98,13 @@ class _NoteState extends State<Note> {
                     maxLines: 20,
                   ),
                 ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: getTags(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                        child:getTags()),
+                    formatDate(widget.note["created_at"])
+                  ],
                 )
               ],
             )),
