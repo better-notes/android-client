@@ -50,7 +50,7 @@ void main() {
                     accentColor: Color(0xFF323C59),
                     bottomAppBarColor: Colors.white,
                     cardColor: Colors.white,
-                    buttonColor: Color(0xFFFFC700),
+                    buttonColor: Color(0xFF323C59),
                     dividerColor: Color(0x1f6D42CE),
                     inputDecorationTheme: InputDecorationTheme(
                       focusColor: Color(0xFF323C59),
