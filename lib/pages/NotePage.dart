@@ -28,6 +28,7 @@ class _NotePageState extends State<NotePage> {
             alignment: WrapAlignment.start,
             children: widget.note['tags']
                 .map<Widget>((tag) => new Card(
+                      color: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -66,28 +67,23 @@ class _NotePageState extends State<NotePage> {
         ),
         body: Container(
           child: Container(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          widget.note["text"],
-                          style: TextStyle(fontSize: 20),
-                        ),
+            child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.note["text"],
+                        style: TextStyle(fontSize: 20),
                       ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: getTags(),
-                      )
-                    ],
-                  )),
-            ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: getTags(),
+                    )
+                  ],
+                )),
           ),
         ));
   }

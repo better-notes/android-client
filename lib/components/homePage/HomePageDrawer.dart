@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_application_1/pages/about.dart';
-import 'package:flutter_application_1/pages/features.dart';
 import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,12 +18,6 @@ class HomePageDrawer extends StatelessWidget {
   final VoidCallback setStateToEnter;
   final Map<String, dynamic> userInfo;
   final FlutterSecureStorage storage;
-
-  final Widget appLogo = SvgPicture.asset(
-    'assets/grid-dynamic.svg',
-    height: 40,
-    width: 40,
-  );
 
   Widget formatDate(String dateString) {
     var date = DateTime.parse(dateString);
@@ -67,82 +59,37 @@ class HomePageDrawer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Spacer(),
                         Center(
-                          child: appLogo,
+                          child: SvgPicture.asset(
+                            'assets/icon.svg',
+                            height: 40,
+                            width: 40,
+                            color: Theme.of(context).buttonColor,
+                          ),
                         ),
                         Center(
                           child: Text(
                             'Better Notes',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                            style: TextStyle(fontSize: 18),
                           ),
                         ),
                         Spacer(),
                         Row(
                           children: [
+                            Text('Account: '),
                             Text(
-                              'Account:',
+                              '@${this.userInfo["username"]}',
+                              style: TextStyle(
+                                  color: Theme.of(context).buttonColor),
                             ),
-                            Spacer(),
-                            Text(
-                              this.userInfo['username'],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Created at:',
-                            ),
-                            Spacer(),
-                            formatDate(userInfo['created_at']),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  decoration: BoxDecoration(),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.book,
-                  ),
-                  title: Text(
-                    'About',
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AboutPage()),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.info,
-                  ),
-                  title: Text(
-                    'Better Notes Features',
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FeaturesPage()),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.logout,
-                  ),
-                  title: Text(
-                    'Log out',
-                  ),
-                  onTap: () async {
-                    await removeValue('authToken');
-                    setStateToEnter();
-                  },
+                  decoration:
+                      BoxDecoration(color: Theme.of(context).primaryColor),
                 ),
                 SwitchListTile(
                     secondary: Icon(
@@ -155,6 +102,19 @@ class HomePageDrawer extends StatelessWidget {
                     onChanged: (bool value) {
                       toggleTheme(value, themeChanger);
                     }),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                  ),
+                  title: Text(
+                    'Log out',
+                  ),
+                  onTap: () async {
+                    await removeValue('authToken');
+                    setStateToEnter();
+                  },
+                ),
                 Divider(),
               ],
             ),

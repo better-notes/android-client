@@ -18,10 +18,6 @@ class EnterPage extends StatefulWidget {
 }
 
 class _EnterPageState extends State<EnterPage> {
-  final Widget appLogo = SvgPicture.asset(
-    'assets/grid-dynamic.svg',
-    height: 30,
-  );
   final _loginFormKey = GlobalKey<FormState>();
   var loginButtonState = buttonStates.waitingForClick;
 
@@ -55,7 +51,14 @@ class _EnterPageState extends State<EnterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: appLogo),
+          title: Center(
+            child: SvgPicture.asset(
+              'assets/icon.svg',
+              height: 30,
+              width: 30,
+              color: Theme.of(context).buttonColor,
+            ),
+          ),
         ),
         body: Container(
           child: Container(
@@ -108,7 +111,7 @@ class _EnterPageState extends State<EnterPage> {
                                                         BorderRadius.circular(
                                                             15.0)),
                                                 icon: Icon(
-                                                  Icons.person,
+                                                  Icons.alternate_email,
                                                 ),
                                                 hintText: 'Login',
                                                 filled: true,

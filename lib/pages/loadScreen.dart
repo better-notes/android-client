@@ -24,11 +24,6 @@ class LoadScreenPage extends StatefulWidget {
 }
 
 class _LoadScreenPageState extends State<LoadScreenPage> {
-  final Widget appLogo = SvgPicture.asset(
-    'assets/grid-dynamic.svg',
-    height: 30,
-  );
-
   void returnToEnter() async {
     await widget.removeValue('authToken');
     widget.setStateToEnter();
@@ -59,7 +54,14 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
             } else if (snapshot.hasError) {
               switch (snapshot.error) {
                 case HttpError.failedToFindSession:
-                  child = Center(child: appLogo);
+                  child = Center(
+                    child: SvgPicture.asset(
+                      'assets/icon.svg',
+                      height: 30,
+                      width: 30,
+                      color: Theme.of(context).buttonColor,
+                    ),
+                  );
                   returnToEnter();
                   break;
                 default:
@@ -96,7 +98,12 @@ class _LoadScreenPageState extends State<LoadScreenPage> {
                       height: 100.0,
                       width: 100.0,
                     ),
-                    appLogo,
+                    SvgPicture.asset(
+                      'assets/icon.svg',
+                      height: 30,
+                      width: 30,
+                      color: Theme.of(context).buttonColor,
+                    ),
                   ],
                 ),
               );

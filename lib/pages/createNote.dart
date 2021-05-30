@@ -64,6 +64,7 @@ class _AddNotePageState extends State<AddNotePage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Card(
+                    color: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
