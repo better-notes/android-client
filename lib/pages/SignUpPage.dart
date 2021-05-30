@@ -25,10 +25,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final Widget appLogo = SvgPicture.asset(
-    'assets/grid-dynamic.svg',
-    height: 30,
-  );
   final _signUpFormKey = GlobalKey<FormState>();
   var signUpButtonState = buttonStates.waitingForClick;
 
@@ -52,7 +48,12 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: appLogo,
+        title: SvgPicture.asset(
+          'assets/icon.svg',
+          height: 30,
+          width: 30,
+          color: Theme.of(context).buttonColor,
+        ),
         foregroundColor: Colors.white,
       ),
       body: Container(
@@ -99,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       border: UnderlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(15.0)),
-                                      icon: Icon(Icons.person),
+                                      icon: Icon(Icons.alternate_email),
                                       hintText: 'Login',
                                       filled: true,
                                     ),
