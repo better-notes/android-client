@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 import 'package:flutter_application_1/components/homePage/HomePageDrawer.dart';
 import 'package:flutter_application_1/components/homePage/note.dart';
 import 'package:flutter_application_1/data/deleteNote.dart';
@@ -95,6 +97,8 @@ class HomePageState extends State<HomePage> {
                 key: Key(item['id_'].toString()),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
+                  HapticFeedback.vibrate();
+
                   deleteNote(item, widget.stateToken).then((value) {
                     setState(() {
                       notes.removeAt(index);
@@ -158,6 +162,7 @@ class HomePageState extends State<HomePage> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
+                HapticFeedback.vibrate();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -172,6 +177,7 @@ class HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            HapticFeedback.vibrate();
             Navigator.push(
               context,
               MaterialPageRoute(

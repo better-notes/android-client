@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/SignUpPage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_application_1/accounts/services.dart';
@@ -177,6 +178,9 @@ class _EnterPageState extends State<EnterPage> {
                                                       if (_loginFormKey
                                                           .currentState!
                                                           .validate()) {
+                                                        HapticFeedback
+                                                            .vibrate();
+
                                                         setState(() {
                                                           loginButtonState =
                                                               buttonStates
@@ -251,6 +255,7 @@ class _EnterPageState extends State<EnterPage> {
                                               child: Center(
                                                 child: TextButton(
                                                   onPressed: () {
+                                                    HapticFeedback.vibrate();
                                                     this
                                                         .loginLoginController
                                                         .clear();

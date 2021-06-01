@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/accounts/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -188,6 +189,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                               buttonStates.processing)
                                           ? null
                                           : () {
+                                              HapticFeedback.vibrate();
+
                                               if (_signUpFormKey.currentState!
                                                   .validate()) {
                                                 setState(() {
@@ -255,6 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     child: Center(
                                       child: TextButton(
                                         onPressed: () {
+                                          HapticFeedback.vibrate();
                                           widget.loginController.clear();
                                           widget.passwordController.clear();
                                           widget.confirmPasswordController
