@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/data/createNote.dart';
 import 'package:flutter_application_1/note/parseNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,6 +34,7 @@ class _AddNotePageState extends State<AddNotePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            HapticFeedback.vibrate();
             if (createNoteFormKey.currentState!.validate()) {
               var noteText = parseNote(createNoteConroller.text);
               var tags = getNoteTags(noteText);

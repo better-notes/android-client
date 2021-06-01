@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/data/editNote.dart';
 import 'package:flutter_application_1/note/parseNote.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,6 +43,7 @@ class _EditNotePageState extends State<EditNotePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            HapticFeedback.vibrate();
             if (editNoteFormKey.currentState!.validate()) {
               var noteText = parseNote(editNoteConroller.text);
               var tags = getNoteTags(noteText);

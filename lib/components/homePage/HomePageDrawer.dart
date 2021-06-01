@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -100,6 +101,7 @@ class HomePageDrawer extends StatelessWidget {
                     ),
                     value: themeToBoolean(themeChanger),
                     onChanged: (bool value) {
+                      HapticFeedback.vibrate();
                       toggleTheme(value, themeChanger);
                     }),
                 Divider(),
@@ -111,6 +113,7 @@ class HomePageDrawer extends StatelessWidget {
                     'Log out',
                   ),
                   onTap: () async {
+                    HapticFeedback.vibrate();
                     await removeValue('authToken');
                     setStateToEnter();
                   },

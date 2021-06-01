@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/EditNotePage.dart';
 
 class NotePage extends StatefulWidget {
@@ -52,6 +53,7 @@ class _NotePageState extends State<NotePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            HapticFeedback.vibrate();
             Navigator.push(
               context,
               MaterialPageRoute(
