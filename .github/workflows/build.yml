@@ -1,4 +1,4 @@
-name: Lint & Build
+name: Build apk & notify
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           name: apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-  notify:
+  notify-telegram:
     name: Send telegram notification w/ pr url
     runs-on: ubuntu-latest
     needs:
@@ -43,3 +43,23 @@ jobs:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: "#frontend\n\nNew apk build"
           document: app-release.apk
+
+  notify-matrix:
+    name: Send matrix notification w/ built apk
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Download built apk from artifacts provider
+        uses: actions/download-artifact@v2
+        with:
+          name: apk
+      - name: send apk to matrix
+        uses: better-notes/send-matrix-file@v1
+        with:
+          file-path: app-release.apk
+          content-type: application/vnd.android.package-archive
+          file-name: app-release.apk
+          file-type: m.file
+          chat-id: ${{ secrets.MATRIX_CHAT_ID }}
+          authentication-token: ${{ secrets.MATRIX_TOKEN }}
