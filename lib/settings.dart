@@ -1,1 +1,1 @@
-const apiUrl = 'notes.wintercitizen.xyz';
+const apiUrl = 'notes.wintercitizen.com';

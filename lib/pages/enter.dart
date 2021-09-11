@@ -76,8 +76,7 @@ class _EnterPageState extends State<EnterPage> {
                             child: Padding(
                               child: Text(
                                 'Log in',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                               padding: EdgeInsets.all(10),
                             ),
@@ -92,8 +91,7 @@ class _EnterPageState extends State<EnterPage> {
                                         height: 80,
                                         child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 30, right: 30),
+                                            padding: EdgeInsets.only(left: 30, right: 30),
                                             child: TextFormField(
                                               autofillHints: <String>[
                                                 AutofillHints.username,
@@ -104,13 +102,10 @@ class _EnterPageState extends State<EnterPage> {
                                                 }
                                                 return null;
                                               },
-                                              controller:
-                                                  this.loginLoginController,
+                                              controller: this.loginLoginController,
                                               decoration: InputDecoration(
                                                 border: UnderlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0)),
+                                                    borderRadius: BorderRadius.circular(15.0)),
                                                 icon: Icon(
                                                   Icons.alternate_email,
                                                 ),
@@ -125,12 +120,9 @@ class _EnterPageState extends State<EnterPage> {
                                         height: 80,
                                         child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 30, right: 30),
+                                            padding: EdgeInsets.only(left: 30, right: 30),
                                             child: TextFormField(
-                                              autofillHints: <String>[
-                                                AutofillHints.password
-                                              ],
+                                              autofillHints: <String>[AutofillHints.password],
                                               obscureText: true,
                                               validator: (value) {
                                                 if (value!.trim().isEmpty) {
@@ -138,13 +130,10 @@ class _EnterPageState extends State<EnterPage> {
                                                 }
                                                 return null;
                                               },
-                                              controller:
-                                                  this.loginPasswordController,
+                                              controller: this.loginPasswordController,
                                               decoration: InputDecoration(
                                                 border: UnderlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0)),
+                                                    borderRadius: BorderRadius.circular(15.0)),
                                                 icon: Icon(
                                                   Icons.lock,
                                                 ),
@@ -158,76 +147,49 @@ class _EnterPageState extends State<EnterPage> {
                                       Container(
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                              top: 10,
-                                              left: 30,
-                                              bottom: 10,
-                                              right: 30),
+                                              top: 10, left: 30, bottom: 10, right: 30),
                                           child: Center(
                                             child: ElevatedButton(
                                               style: ButtonStyle(
-                                                  shape: MaterialStateProperty
-                                                      .all<RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
+                                                  shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.0),
                                               ))),
                                               onPressed: (loginButtonState ==
                                                       buttonStates.processing)
                                                   ? null
                                                   : () {
-                                                      if (_loginFormKey
-                                                          .currentState!
-                                                          .validate()) {
-                                                        HapticFeedback
-                                                            .vibrate();
+                                                      if (_loginFormKey.currentState!.validate()) {
+                                                        HapticFeedback.vibrate();
 
                                                         setState(() {
                                                           loginButtonState =
-                                                              buttonStates
-                                                                  .processing;
+                                                              buttonStates.processing;
                                                         });
                                                         authenticate(
-                                                          this
-                                                              .loginLoginController
-                                                              .text,
-                                                          this
-                                                              .loginPasswordController
-                                                              .text,
+                                                          this.loginLoginController.text,
+                                                          this.loginPasswordController.text,
                                                         )
-                                                            .then((data) => {
-                                                                  writeUser(
-                                                                      data)
-                                                                })
-                                                            .catchError(
-                                                                (error) {
+                                                            .then((data) => {writeUser(data)})
+                                                            .catchError((error) {
                                                           setState(() {
                                                             loginButtonState =
-                                                                buttonStates
-                                                                    .waitingForClick;
+                                                                buttonStates.waitingForClick;
                                                           });
-                                                          ScaffoldMessenger.of(
-                                                                  context)
+                                                          ScaffoldMessenger.of(context)
                                                               .showSnackBar(
                                                             SnackBar(
-                                                              content: Text(error
-                                                                  .toString()),
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      1500),
+                                                              content: Text(error.toString()),
+                                                              duration:
+                                                                  Duration(milliseconds: 1500),
                                                               width: 280.0,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          8.0),
-                                                              behavior:
-                                                                  SnackBarBehavior
-                                                                      .floating,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
+                                                              padding: EdgeInsets.symmetric(
+                                                                  horizontal: 8.0),
+                                                              behavior: SnackBarBehavior.floating,
+                                                              shape: RoundedRectangleBorder(
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
+                                                                    BorderRadius.circular(10.0),
                                                               ),
                                                             ),
                                                           );
@@ -241,8 +203,7 @@ class _EnterPageState extends State<EnterPage> {
                                       ),
                                       Center(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Container(
                                               child: Center(
@@ -256,30 +217,22 @@ class _EnterPageState extends State<EnterPage> {
                                                 child: TextButton(
                                                   onPressed: () {
                                                     HapticFeedback.vibrate();
-                                                    this
-                                                        .loginLoginController
-                                                        .clear();
-                                                    this
-                                                        .loginPasswordController
-                                                        .clear();
+                                                    this.loginLoginController.clear();
+                                                    this.loginPasswordController.clear();
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              SignUpPage(
+                                                          builder: (context) => SignUpPage(
                                                                 loginController:
                                                                     signUpLoginController,
                                                                 passwordController:
                                                                     signUpPassword1Controller,
                                                                 confirmPasswordController:
                                                                     signUpPassword2Controller,
-                                                                setValue: widget
-                                                                    .setValue,
+                                                                setValue: widget.setValue,
                                                                 setAppStateHome:
-                                                                    widget
-                                                                        .setAppStateHome,
-                                                                writeUser: this
-                                                                    .writeUser,
+                                                                    widget.setAppStateHome,
+                                                                writeUser: this.writeUser,
                                                               )),
                                                     );
                                                   },
