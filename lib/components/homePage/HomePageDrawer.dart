@@ -43,7 +43,6 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
           );
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error');
           setState(
             () {
               this._isInterstitialAdReady = false;
@@ -174,6 +173,19 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                     if (this._isInterstitialAdReady) {
                       this._interstitialAd.show();
                       this._loadInterstitialAd();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Ad is not available.'),
+                          duration: Duration(milliseconds: 1500),
+                          width: 280.0,
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      );
                     }
                   },
                 ),
