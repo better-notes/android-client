@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../settings.dart';
 
-Future<dynamic> register(
-    String username, String password1, String password2) async {
+Future<dynamic> register(String username, String password1, String password2) async {
   var res;
   try {
     res = await http.post(

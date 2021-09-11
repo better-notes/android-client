@@ -8,9 +8,12 @@ import 'package:flutter_application_1/pages/preload.dart';
 import 'package:flutter_application_1/theming.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MediaQuery(
       data: MediaQueryData(),
       child: ChangeNotifierProvider<ThemeChanger>(
@@ -23,8 +26,7 @@ void main() {
                 themeMode: themeChanger.getTheme,
                 theme: ThemeData(
                     brightness: Brightness.light,
-                    visualDensity:
-                        VisualDensity(vertical: 0.5, horizontal: 0.5),
+                    visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
                     primarySwatch: MaterialColor(
                       0xFF323C59,
                       <int, Color>{
@@ -61,8 +63,7 @@ void main() {
                     focusColor: Color(0x1aF5E0C3)),
                 darkTheme: ThemeData(
                     brightness: Brightness.dark,
-                    visualDensity:
-                        VisualDensity(vertical: 0.5, horizontal: 0.5),
+                    visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
                     primaryColor: Color(0xFF424240),
                     primaryColorBrightness: Brightness.dark,
                     primaryColorLight: Color(0xFF424240),
@@ -181,8 +182,7 @@ class MyAppState extends State<MyApp> {
       case appPageState.preload:
         return PreloadPage();
       case appPageState.enter:
-        return EnterPage(
-            setAppStateHome: _setAppStateHome, setValue: _setValue);
+        return EnterPage(setAppStateHome: _setAppStateHome, setValue: _setValue);
       case appPageState.home:
         return LoadScreenPage(
           stateToken: stateToken,
